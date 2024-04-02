@@ -15,7 +15,7 @@ format:
         \newcommand{\elandscape}{\end{landscape}}
     documentclass: article
     geometry: margin = 1.2in
-    abstract: ""
+    abstract: "Over the past five decades, the United States has witnessed a decline in the percentage of adults residing in middle-class households, alongside escalating concerns about housing affordability. This study aims to assess the impact of rising costs on the living standards of middle and lower-income households, recognizing them as the most affected demographic by these economic shifts. Utilizing data from [...], we analyze changes in income distribution and evaluate the influence of economic policy changes, including interest rates and taxation, on the standards of living of these individuals. Additionally, we explore how individual-level characteristics intersect with these policies to address how best to pursue the goal of economic equity across individuals of all backgrounds. We find that [...]."
     number-sections: true
 output: 
   bookdown::pdf_document2
