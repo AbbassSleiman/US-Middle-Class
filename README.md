@@ -1,4 +1,4 @@
-# Starter folder
+# US Middle Class
 
 ## Overview
 
