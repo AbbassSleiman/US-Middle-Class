@@ -1,6 +1,6 @@
 ---
 title: "Widening income gaps and the shrinking of the middle class"
-subtitle: "An analysis of the effects of various economic policies in the United States on the standards of living of middle and lower income households."
+subtitle: "An analysis of the impact of economic policies on the living standards of middle and lower-income households amidst rising costs and affordability challenges."
 author: 
   - Abbass Sleiman
 thanks: "Code and data are available at: [https://github.com/AbbassSleiman/US-Middle-Class](https://github.com/AbbassSleiman/US-Middle-Class)."
