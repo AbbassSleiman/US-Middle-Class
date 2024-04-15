@@ -1,6 +1,6 @@
 ---
-title: "Widening income gaps and the shrinking of the middle class"
-subtitle: "An analysis of the impact of economic policies on the living standards of middle and lower-income households amidst rising costs and affordability challenges."
+title: "Behind Bars and Beyond: Investigating Socioeconomic Drivers of Incarceration Rates in the United States"
+subtitle: "A comparative analysis of global trends and America's mass incarceration crisis."
 author: 
   - Abbass Sleiman
 thanks: "Code and data are available at: [https://github.com/AbbassSleiman/US-Middle-Class](https://github.com/AbbassSleiman/US-Middle-Class)."
@@ -34,23 +34,18 @@ library(tidyverse)
 
 # Introduction
 
-The last 5 decades in the United States saw a clear contraction in the portion of adults residing in middle-class households - a steady decrease from 61% in 1971 to 50% in 2021 [@citepewmiddle]. Concerns regarding affordability of housing has increased drastically in recent years, as evidenced by the fact that 49% of Americans in 2021 found that the availability of affordable housing was a significant challenge [@citepewhouseaffordability]. Between 2017 and 2022, rents rose 18% and the average cost of all goods and services increased 16% [@citepewhouseaffordability]. 
+In recent decades, the United States has grappled with a consistent rise in its prison population, becoming infamous for having one of the highest incarceration rates in the world. Leading the world with nearly 2 million individuals in prisons and jails in 2022, the US is faced with what, at first glance, appears to be a "uniquely American problem" [@citeUSincarceration]. This phenomenon has sparked widespread concern and debate over how best to address this issue. Central to these discussions is the question of what underlying factors have contributed to this circumstance, in turn necessitating an exploration of the socioeconomic drivers of incarceration rates in the United States.
 
-Given that the middle class continues to comprise the majority of US adults, it is imperative to consider how the standards of living of these individuals, as well as those of lower-income households, have been impacted by these rising costs. As they are the most affected demographic by these economic shifts, understanding the implications on their daily lives, financial stability, and overall well-being is crucial for crafting effective policies and interventions to address these challenges.
+Incarceration refers to the state of being confined in prison as punishment for criminal offences [@citeIncarcerationRate], and in examining the United States' prison dilemma, it becomes clear that the crux of the problem is not easily reducible to simple explanations. Instead, it is a complex issue influenced by a multitude of factors including cultural dynamics and socioeconomic conditions. Thus, in an attempt to unravel the intricacies of these factors, this paper seeks to conduct a comparative analysis of global trends in education, unemployment, crime, and poverty rates as independent factors influencing a nation's incarceration. However, recognizing that the total number of incarcerations is heavily dependent on population size, this paper focuses on nations' incarceration rates as the estimand, defined to be the number of incarcerated individuals per 100,000 in a given population [@citeIncarcerationRate], which serves as a better metric for measuring the extent of imprisonment within a society. By exploring the impact of these factors on incarceration rates, we aim to better understand the primary forces behind the United States' high incarceration rate and overall number of individuals incarcerated. This understanding will help inform policy-making decisions aimed at addressing the issue effectively.
 
-In order to best understand the data and literature at hand, it is important to abide by a concrete definition of each of the three primary income brackets, lower-income, middle-income, and upper-income, to ensure consistency throughout the paper, as well as across the various literature cited. Following the definition provided by the Pew Research Center, this paper defines a middle-income adult in a given year as having an annual household income between two-thirds and twice the national median income in the year before, after adjusting for household size [@citepewmiddle]. Consequently, lower-income adults and upper-income adults are defined as those with less than two-thirds and over twice the median income respectively. It is important to note that we adjust for household size to account for the fact that smaller households require a lesser income to support similar lifestyles as larger households.
+This paper utilizes various datasets from the World Population Review, in particular it utilizes their datasets on "Incarceration Rates by Country 2024", "Poverty Rate by Country 2024", "Education Rankings by Country 2024", "Unemployment by Country 2024", and "Crime Rate by Country 2024". By conducting statistical analyses with the aforementioned data, this paper finds evidence to suggest that [...]
 
-This paper utilizes data from [...] and seeks to examine how the relative proportions of each income class have changed over the past [...] years, and subsequently evaluate how various economic policy changes - interest rates, taxation, immigration, [...] - have influenced these proportions over time whilst offering a comprehensive analysis of how and why these policies may have caused the changes observed. Moreover, this paper aims to uncover how various individual-level characteristics including race, age, education, and [others], intersect with these policies to shape income distribution dynamics in order to address potential disparities and better explore how best to pursue the goal of economic equity across individuals of all
-backgrounds.
-
-This paper finds evidence that [...].
-
-The remainder of this paper is structured as follows. [...].
+The remainder of this paper is structured as follows. @sec-data discusses the raw data, cleaning process, variables of interest, and offers visual representations of the data through tabular and graphical representations of the observations. @sec-model introduces and justifies the Bayesian linear regression model used in the analysis of the data in predicting the relationship between the aforementioned independent variables and a nation's incarceration rate. @sec-results deals with analyzing the trends and correlations showcased by the model in more detail. @sec-discussion discusses the real-world implications of the results uncovered in the prior sections, and finally @sec-limitations discusses the limitations and weaknesses of the analysis conducted, as well as the next steps that could be taken to improve the overall reliability of the paper.
 
 # Data {#sec-data}
 
 
-# Model
+# Model {#sec-model}
 
 
 ## Model set-up
@@ -61,11 +56,11 @@ The remainder of this paper is structured as follows. [...].
 
 
 
-# Results
+# Results {#sec-results}
 
 
 
-# Discussion
+# Discussion {#sec-discussion}
 
 ## First discussion point {#sec-first-point}
 
@@ -73,7 +68,8 @@ The remainder of this paper is structured as follows. [...].
 
 ## Third discussion point
 
-## Weaknesses and next steps
+
+# Weaknesses and next steps {#sec-limitations}
 
 \newpage
 
