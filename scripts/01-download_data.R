@@ -1,26 +1,19 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Details how to acquire the raw datasets used in this paper.
+# Author: Abbass Sleiman
+# Date: 15 April 2024
+# Contact: abbass.sleiman@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
-
-
-#### Workspace setup ####
-library(opendatatoronto)
-library(tidyverse)
-# [...UPDATE THIS...]
+# Pre-requisites: N/A
 
 #### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
-
-
-
-#### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
+# There are 5 datasets used in analysis in total, all of which are provided by
+# the World Population Review for use. Each dataset can be manually downloaded
+# directly as a csv file. Data on incarceration rates by country can be downloaded
+# at https://worldpopulationreview.com/country-rankings/incarceration-rates-by-country,
+# data on poverty rates at https://worldpopulationreview.com/country-rankings/poverty-rate-by-country,
+# education rates at https://worldpopulationreview.com/country-rankings/education-rankings-by-country,
+# unemployment rates at https://worldpopulationreview.com/country-rankings/unemployment-by-country,
+# and crime rates at https://worldpopulationreview.com/country-rankings/crime-rate-by-country.
 
          
