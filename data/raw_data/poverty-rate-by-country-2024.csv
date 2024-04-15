@@ -1,0 +1,165 @@
+"country","LessThan10USDPerDay","LessThan365USDPerDay","PovertyRateValue","PovertyRateValueDataYear"
+"India",92.1,44.8,21.9,2011
+"China",45.8,3,0,2020
+"United States",2.2,1.2,18,
+"Indonesia",79.7,22.4,9.5,2022
+"Pakistan",94.5,39.8,21.9,2018
+"Nigeria",96.9,63.5,40.1,2018
+"Brazil",34.4,5.3,,
+"Bangladesh",95.2,51.6,18.7,2022
+"Russia",15.2,0.3,12.1,2020
+"Ethiopia",,,23.5,2015
+"Mexico",52.5,9.9,36.3,2022
+"Philippines",82.3,27,18.1,2021
+"Egypt",,,29.7,2019
+"DR Congo",,,63.9,2012
+"Vietnam",43.8,5.3,4.8,2020
+"Iran",48.2,6.2,,
+"Turkey",25,2.2,14.4,2020
+"Germany",0.7,0.2,14.7,2021
+"Thailand",33.8,0.7,6.3,2021
+"Tanzania",96.6,74.3,26.4,2018
+"United Kingdom",1.8,0.5,18.6,2017
+"France",0.3,0.1,15.6,2021
+"South Africa",,,55.5,2014
+"Italy",4.7,2.1,20.1,2021
+"Kenya",,,36.1,2015
+"Myanmar",87.2,19.6,24.8,2017
+"Colombia",60.7,21.1,39.3,2021
+"South Korea",2.7,0.5,,
+"Uganda",96.4,71.9,20.3,2019
+"Sudan",,,46.5,2009
+"Spain",4.7,1.1,20.4,2021
+"Iraq",,,18.9,2012
+"Algeria",,,5.5,2011
+"Argentina",,,39.2,2022
+"Afghanistan",,,54.5,2016
+"Poland",13.2,0.1,11.8,2022
+"Canada",1.2,0.5,10.5,
+"Morocco",,,4.8,2013
+"Ukraine",27.2,0.2,1.6,2020
+"Angola",88.7,52.9,32.3,2018
+"Uzbekistan",,,14.1,2013
+"Yemen",,,48.6,2014
+"Mozambique",,,46.1,2014
+"Ghana",90,48.9,23.4,2016
+"Peru",61.9,17.4,27.5,2022
+"Malaysia",,,6.2,2021
+"Nepal",,,25.2,2010
+"Madagascar",,,70.7,2012
+"Ivory Coast",88.4,39.6,39.5,2018
+"Venezuela",,,33.1,2015
+"Cameroon",,,37.5,2014
+"Niger",97.6,81.1,40.8,2018
+"Australia",1.5,0.7,12.6,
+"Syria",,,35.2,2007
+"Mali",91.6,47.5,44.6,2021
+"Taiwan",0.7,0.2,,
+"Burkina Faso",88.5,59.8,,
+"Sri Lanka",75,13.8,14.3,2019
+"Malawi",99.1,89.1,50.7,2019
+"Zambia",,,54.4,2015
+"Kazakhstan",46.4,0.5,5.2,2022
+"Chile",20.5,1.7,10.8,2020
+"Romania",19.9,4.7,21.2,2021
+"Chad",95.5,64.6,42.3,2018
+"Somalia",99.5,90.2,54.4,2022
+"Ecuador",54.5,14.4,25.2,2022
+"Guatemala",,,59.3,2014
+"Senegal",88,37.4,46.7,2011
+"Netherlands",0.8,0.1,14.5,2021
+"Cambodia",,,17.7,2012
+"Zimbabwe",91.4,64.5,38.3,2019
+"Guinea",96.2,46.6,43.7,2018
+"Rwanda",96.8,78,38.2,2016
+"Benin",93.3,53.2,38.5,2018
+"Burundi",,,64.9,2013
+"Bolivia",31.9,6.2,36.4,2021
+"Tunisia",,,16.6,2021
+"Haiti",,,58.5,2012
+"Belgium",,,13.2,2021
+"Dominican Republic",46.3,5.3,23.9,2021
+"Jordan",,,15.7,2018
+"South Sudan",98.8,86.5,82.3,2016
+"Honduras",65,26.4,48,2019
+"Sweden",1.4,0.4,16,2021
+"Papua New Guinea",,,39.9,2009
+"Czech Republic",1.1,0,10.2,2021
+"Azerbaijan",,,6,2012
+"Tajikistan",,,22.5,2022
+"Greece",8.7,1.3,18.8,2021
+"Portugal",4.3,0.2,16.4,2021
+"Hungary",,,12.1,2021
+"Belarus",,,4.8,2020
+"Israel",8,1,16.9,
+"Togo",92.1,56.8,45.5,2018
+"Sierra Leone",96,64.3,56.8,2018
+"Austria",1.2,0.7,14.8,2021
+"Switzerland",0.4,0,14.7,2020
+"Laos",85.8,32.5,18.3,2018
+"Nicaragua",,,24.9,2016
+"Serbia",27.5,1.2,21.2,2020
+"Paraguay",39.5,5.2,24.7,2022
+"Kyrgyzstan",88.2,18.7,33.3,2021
+"Bulgaria",13.7,2.8,22.9,2021
+"El Salvador",,,26.6,2022
+"Republic of the Congo",,,40.9,2011
+"Denmark",0.5,0.3,12.4,2021
+"Central African Republic",,,68.8,2021
+"Slovakia",5,0.5,13.7,2021
+"Finland",0.3,0.1,12.7,2021
+"Liberia",96.3,60.6,50.9,2016
+"Norway",0.7,0.3,12.7,2019
+"Palestine",41.5,3.1,,
+"Costa Rica",34.9,6,25.5,2022
+"Lebanon",,,27.4,2011
+"Ireland",0.1,0.1,14,2021
+"Mauritania",,,31.8,2019
+"Panama",20,3.7,21.5,2019
+"Croatia",6.1,0.6,18,2018
+"Georgia",81.1,21.4,15.6,2022
+"Mongolia",64.2,6.9,27.8,2020
+"Uruguay",17.2,0.9,9.9,2022
+"Moldova",45,0.4,31.1,2022
+"Bosnia and Herzegovina",,,16.9,2015
+"Gambia",,,53.4,2020
+"Albania",30.7,0.8,22,2020
+"Jamaica",,,19.9,2012
+"Armenia",82.8,6.9,26.5,2021
+"Botswana",,,16.1,2015
+"Lithuania",3.9,0.7,20.9,2021
+"Namibia",,,17.4,2015
+"Gabon",52.1,8.1,33.4,2017
+"Lesotho",91.2,54.7,49.7,2017
+"Guinea-Bissau",95.4,56.8,47.7,2018
+"Slovenia",0.4,0,12.1,2021
+"North Macedonia",37.9,7.1,21.8,2019
+"Latvia",6.3,0.8,22.5,2021
+"Equatorial Guinea",,,76.8,2006
+"Timor-Leste",,,41.8,2014
+"Estonia",2.5,0.9,22.8,2021
+"Mauritius",32.8,1.8,10.3,2017
+"Cyprus",0.7,0.2,13.9,2021
+"Eswatini",85.6,58,58.9,2016
+"Djibouti",89.7,43.8,21.1,2017
+"Fiji",77.2,12.4,24.1,2019
+"Comoros",,,42.4,2013
+"Bhutan",60.3,9.4,12.4,2022
+"Solomon Islands",,,12.7,2020
+"Luxembourg",0.4,0.1,17.4,2021
+"Montenegro",30.5,6.3,21.2,2020
+"Cape Verde",,,35.2,2015
+"Malta",1.2,0.4,16.7,2021
+"Maldives",17.1,0,5.4,2019
+"Iceland",0.2,0,8.8,2017
+"Vanuatu",91.4,35,15.9,2019
+"Sao Tome and Principe",90,44.8,55.5,2018
+"Samoa",,,21.9,2018
+"Saint Lucia",39.7,11.7,25,2016
+"Kiribati",89.5,19.4,21.9,2019
+"Micronesia",,,41.2,2013
+"Tonga",,,22.5,2009
+"Seychelles",15.2,1.2,25.3,2018
+"Marshall Islands",57,6.1,7.2,2019
+"Palau",,,24.9,2006
+"Tuvalu",,,26.3,2010

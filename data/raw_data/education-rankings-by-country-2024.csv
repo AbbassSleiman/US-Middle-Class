@@ -1,0 +1,209 @@
+"country","LiteracyRateAllGenders","literacyRateByCountry_dataYear","educationRankingsByCountry_WT20rank2024","educationRankingsByCountry_rank2023","educationRankingsByCountry_rank2022","educationRankingsByCountry_rank2021","educationRankingsByCountry_rank2020"
+"India",74,2018,101,34,34,32,34
+"China",97,2020,13,23,23,22,24
+"United States",,,31,1,1,1,1
+"Indonesia",96,2020,67,58,52,54,55
+"Pakistan",58,2019,136,,,,
+"Nigeria",62,2018,191,,,,
+"Brazil",94,2021,145,32,35,36,30
+"Bangladesh",75,2020,122,84,80,,
+"Russia",100,2021,22,27,25,23,21
+"Ethiopia",52,2017,179,,,,
+"Mexico",95,2020,39,40,41,37,36
+"Japan",,,6,6,7,7,11
+"Philippines",96,2019,71,52,50,55,52
+"Egypt",75,2022,84,37,37,39,42
+"DR Congo",81,2022,200,,,,
+"Vietnam",96,2019,53,65,62,59,64
+"Iran",89,2021,81,81,74,,
+"Turkey",97,2019,37,30,31,31,31
+"Germany",,,7,3,3,3,4
+"Thailand",94,2021,107,44,48,46,48
+"Tanzania",82,2022,149,,,,
+"United Kingdom",,,12,2,2,2,2
+"France",,,16,5,5,5,5
+"South Africa",90,2021,114,41,36,33,32
+"Italy",99,2018,36,14,13,14,16
+"Kenya",83,2022,90,70,71,68,68
+"Myanmar",89,2019,109,74,79,76,71
+"Colombia",96,2020,74,54,56,51,49
+"South Korea",,,1,19,19,19,22
+"Uganda",81,2022,156,,,,
+"Sudan",61,2018,138,,,,
+"Spain",99,2020,20,17,18,17,18
+"Iraq",,,188,,,77,
+"Algeria",81,2018,73,67,67,,
+"Argentina",99,2018,38,35,33,34,29
+"Afghanistan",37,2021,146,,,,
+"Poland",100,2021,23,25,27,26,23
+"Canada",,,19,4,4,4,3
+"Morocco",77,2022,113,56,58,57,57
+"Ukraine",100,2021,166,48,43,40,38
+"Angola",72,2022,196,,,,
+"Saudi Arabia",98,2020,45,38,32,35,46
+"Uzbekistan",100,2022,63,80,84,72,
+"Yemen",70,2015,131,,,,
+"Mozambique",63,2021,159,,,,
+"Ghana",80,2020,106,77,69,,
+"Peru",94,2020,77,68,64,64,59
+"Malaysia",95,2019,89,39,40,38,39
+"Nepal",71,2021,56,,,,
+"Madagascar",77,2022,148,,,,
+"Ivory Coast",90,2019,135,,,,
+"Venezuela",98,2022,111,,,,
+"Cameroon",78,2020,141,85,78,,
+"Niger",38,2022,147,,,,
+"Australia",,,17,8,9,8,7
+"North Korea",,,110,,,,
+"Syria",86,2015,197,,,,
+"Mali",31,2020,155,,,,
+"Taiwan",99,2014,32,,,,
+"Burkina Faso",34,2022,143,,,,
+"Sri Lanka",,,61,79,81,66,67
+"Malawi",68,2022,176,,,,
+"Zambia",88,2020,198,,,,
+"Kazakhstan",100,2020,43,78,82,71,70
+"Chile",97,2022,40,49,51,48,35
+"Romania",99,2021,99,43,45,47,40
+"Chad",27,2022,160,,,,
+"Somalia",41,2022,203,,,,
+"Ecuador",94,2022,54,73,65,73,65
+"Guatemala",84,2022,126,86,85,78,73
+"Senegal",58,2022,154,,,,
+"Netherlands",,,3,11,10,10,9
+"Cambodia",84,2022,120,83,73,75,
+"Zimbabwe",90,2022,192,87,,,
+"Guinea",45,2021,162,,,,
+"Rwanda",76,2021,133,,,,
+"Benin",47,2022,130,,,,
+"Burundi",76,2022,151,,,,
+"Bolivia",94,2020,95,,,,
+"Tunisia",84,2022,104,72,75,67,63
+"Haiti",62,2016,193,,,,
+"Belgium",,,4,18,16,18,
+"Dominican Republic",95,2021,96,69,72,69,60
+"Jordan",98,2021,127,53,54,58,53
+"South Sudan",35,2018,202,,,,
+"Cuba",100,2021,144,,,,
+"Honduras",89,2019,132,76,,,
+"Sweden",,,15,9,8,9,8
+"Papua New Guinea",64,2015,123,,,,
+"Czech Republic",99,2011,34,31,30,,
+"Azerbaijan",100,2019,86,66,61,65,61
+"Tajikistan",100,2010,87,,,,
+"Greece",98,2018,33,29,29,28,26
+"Portugal",97,2021,24,24,24,25,20
+"Hungary",99,2021,30,36,38,30,
+"United Arab Emirates",98,2022,164,28,28,27,28
+"Belarus",100,2019,57,64,53,52,51
+"Israel",92,1983,21,26,26,24,25
+"Togo",67,2019,121,,,,
+"Sierra Leone",49,2022,125,,,,
+"Austria",,,35,16,17,16,13
+"Switzerland",,,28,7,6,6,6
+"Laos",88,2022,102,,,,
+"Hong Kong",,,14,,,,
+"Nicaragua",83,2015,189,,,,
+"Serbia",99,2019,68,57,68,63,58
+"Libya",91,2015,187,,,,
+"Paraguay",95,2020,180,,,,
+"Kyrgyzstan",100,2019,64,,,,
+"Bulgaria",98,2021,134,51,57,49,43
+"Turkmenistan",99,2005,169,,,,
+"El Salvador",90,2020,112,82,,74,
+"Republic of the Congo",81,2021,184,,,,
+"Singapore",97,2020,11,20,22,21,19
+"Denmark",,,2,10,11,12,10
+"Central African Republic",37,2020,161,,,,
+"Slovakia",,,41,50,47,45,44
+"Finland",,,8,12,15,15,15
+"Liberia",48,2017,150,,,,
+"Norway",,,9,13,12,13,12
+"Palestine",,,181,,,,
+"New Zealand",,,27,15,14,11,14
+"Costa Rica",98,2021,44,62,63,61,54
+"Lebanon",95,2019,174,71,59,70,69
+"Ireland",,,10,21,20,20,
+"Mauritania",67,2021,139,,,,
+"Oman",97,2022,58,63,70,62,62
+"Panama",96,2019,116,75,76,60,56
+"Kuwait",96,2020,93,,,,
+"Croatia",99,2021,76,46,44,43,33
+"Eritrea",77,2018,142,,,,
+"Georgia",100,2022,70,,,,
+"Mongolia",99,2020,52,,,,
+"Uruguay",99,2019,103,61,66,56,
+"Moldova",100,2021,108,,,,
+"Puerto Rico",92,2021,172,,,,
+"Bosnia and Herzegovina",98,2022,175,,,,
+"Gambia",59,2022,158,,,,
+"Albania",99,2022,66,,,,
+"Jamaica",89,2015,115,,,,
+"Armenia",100,2020,98,,,,
+"Qatar",94,2017,91,33,39,41,37
+"Botswana",89,2015,185,,,,
+"Lithuania",100,2021,29,60,46,42,45
+"Namibia",92,2021,177,,,,
+"Gabon",86,2022,194,,,,
+"Lesotho",82,2022,129,,,,
+"Guinea-Bissau",54,2022,195,,,,
+"Slovenia",100,2001,5,45,55,53,41
+"North Macedonia",98,2012,167,,,,
+"Latvia",100,2021,25,55,49,50,50
+"Equatorial Guinea",95,2015,186,,,,
+"Trinidad and Tobago",98,2000,170,,,,
+"Bahrain",98,2018,82,59,60,,
+"Timor-Leste",70,2020,69,,,,
+"Estonia",100,2021,26,42,42,44,47
+"Mauritius",92,2021,78,,,,
+"Cyprus",99,2021,163,47,,,
+"Eswatini",89,2020,105,,,,
+"Djibouti",,,137,,,,
+"Fiji",99,2018,49,,,,
+"Comoros",62,2022,152,,,,
+"Guyana",90,2022,171,,,,
+"Bhutan",72,2022,88,,,,
+"Solomon Islands",77,1999,117,,,,
+"Macau",,,62,,,,
+"Luxembourg",,,42,22,21,,
+"Suriname",95,2021,128,,,,
+"Montenegro",99,2021,80,,,,
+"Cape Verde",91,2022,118,,,,
+"Malta",95,2021,55,,,,
+"Maldives",98,2021,60,,,,
+"Brunei",98,2021,47,,,,
+"Belize",81,2001,85,,,,
+"Bahamas",,,157,,,,
+"Iceland",,,18,,,,
+"Vanuatu",89,2021,178,,,,
+"New Caledonia",97,2006,,,,,
+"Barbados",100,2014,140,,,,
+"Sao Tome and Principe",94,2022,119,,,,
+"Samoa",99,2021,50,,,,
+"Saint Lucia",,,97,,,,
+"Guam",100,2000,,,,,
+"Kiribati",,,72,,,,
+"Grenada",99,2014,46,,,,
+"Micronesia",,,190,,,,
+"Tonga",99,2021,182,,,,
+"Seychelles",96,2020,51,,,,
+"Aruba",98,2020,165,,,,
+"Saint Vincent and the Grenadines",97,1980,65,,,,
+"Antigua and Barbuda",99,2001,75,,,,
+"Andorra",100,2016,201,,,,
+"Dominica",,,94,,,,
+"Cayman Islands",99,2021,,,,,
+"Bermuda",,,183,,,,
+"Greenland",100,2015,,,,,
+"Saint Kitts and Nevis",,,59,,,,
+"American Samoa",97,1980,,,,,
+"Marshall Islands",98,2011,153,,,,
+"Liechtenstein",,,83,,,,
+"San Marino",100,2018,48,,,,
+"Gibraltar",,,79,,,,
+"British Virgin Islands",,,100,,,,
+"Palau",97,2015,173,,,,
+"Nauru",,,92,,,,
+"Tuvalu",,,124,,,,
+"Niue",,,168,,,,
+"Total",73.11960834233948,,,,,,
