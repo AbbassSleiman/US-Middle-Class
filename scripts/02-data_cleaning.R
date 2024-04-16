@@ -46,17 +46,26 @@ cleaned_data <-
     crime_rate = crime_rate_by_country_crime_index,
     education_rank = education_rankings_by_country_wt20rank2024,
     unemployment_rate = unemployment_rate_world_bank
-  ) |>
+  )
+
+# Define the decile boundaries
+decile_boundaries <- c(1, 16, 28, 41, 58, 78, 101, 119, 139, 175, 198)
+
+# Create a new column in the dataset to store the education rank categories
+cleaned_data <- cleaned_data |>
+  mutate(education_category = cut(education_rank, breaks = decile_boundaries, 
+                                  labels = c("1-16", "17-28", "29-41", "42-58", 
+                                             "59-78", "79-101", "102-119", 
+                                             "120-139", "140-175", "176-198"))) |>
   select(
     country,
     incarceration_rate,
     poverty_rate,
     crime_rate,
     unemployment_rate,
-    education_rank
+    education_category
   ) |>
   na.omit()
-  
 
 #### Save data ####
 write_csv(cleaned_data, "data/analysis_data/incarceration_data.csv")

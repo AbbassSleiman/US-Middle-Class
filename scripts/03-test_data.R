@@ -27,8 +27,8 @@ test_non_negative <- all(cleaned_data$incarceration_rate >= 0) &&
 # Test 2: Check if there are 105 unique countries
 test_num_countries <- length(unique(cleaned_data$country)) == 105
 
-# Test 3: Check if there are no repeats in the educational ranking
-test_unique_educational_ranking <- length(unique(cleaned_data$education_rank)) == 105
+# Test 3: Check if there are exactly 10 unique categories in the education category
+test_unique_categories <- length(unique(cleaned_data$education_category)) == 10
 
 # Test 4: Check if each column is of the correct class
 test_column_classes <- class(cleaned_data$country) == "character" &&
@@ -36,11 +36,11 @@ test_column_classes <- class(cleaned_data$country) == "character" &&
   class(cleaned_data$poverty_rate) == "numeric" &&
   class(cleaned_data$crime_rate) == "numeric" &&
   class(cleaned_data$unemployment_rate) == "numeric" &&
-  class(cleaned_data$education_rank) == "numeric"
+  class(cleaned_data$education_category) == "character"
 
 # Print test results
 print(paste("Test 1 (All values are non-negative):", test_non_negative))
 print(paste("Test 2 (There are 105 unique countries):", test_num_countries))
-print(paste("Test 3 (There are no repeats in the educational ranking):", test_unique_educational_ranking))
+print(paste("Test 3 (There are exactly 10 unique categories in the education category):", test_unique_categories))
 print(paste("Test 4 (Each column is of the correct class):", test_column_classes))
 
