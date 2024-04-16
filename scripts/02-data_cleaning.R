@@ -1,44 +1,62 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Merges the 5 datasets listing each of the variables into one dataset 
+# and cleans them.
+# Author: Abbass Sleiman
+# Date: 15 April 2024
+# Contact: abbass.sleiman@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: Raw datasets must be downloaded as per the instructions in the 
+# 01-download_data.R script.
 
 #### Workspace setup ####
 library(tidyverse)
+library(janitor)
+library(here)
+library(dplyr)
+
+#### Read data ####
+raw_incarceration_data <- 
+  read_csv("data/raw_data/incarceration-rates-by-country-2024.csv")
+
+raw_crime_data <-
+  read_csv("data/raw_data/crime-rate-by-country-2024.csv")
+
+raw_education_data <-
+  read_csv("data/raw_data/education-rankings-by-country-2024.csv")
+
+raw_poverty_data <-
+  read_csv("data/raw_data/poverty-rate-by-country-2024.csv")
+
+raw_unemployment_data <-
+  read_csv("data/raw_data/unemployment-by-country-2024.csv")
+
+#### Merge data ####
+raw_merged_data <- inner_join(raw_incarceration_data, raw_crime_data, by = "country") |>
+  inner_join(raw_education_data, by = "country") |>
+  inner_join(raw_poverty_data, by = "country") |>
+  inner_join(raw_unemployment_data, by = "country")
 
 #### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
-
 cleaned_data <-
-  raw_data |>
+  raw_merged_data |>
   janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
-  mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
+  rename(
+    incarceration_rate = incarceration_rates_by_country_rate_per100k,
+    poverty_rate = poverty_rate_value,
+    crime_rate = crime_rate_by_country_crime_index,
+    education_rank = education_rankings_by_country_wt20rank2024,
+    unemployment_rate = unemployment_rate_world_bank
   ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
+  select(
+    country,
+    incarceration_rate,
+    poverty_rate,
+    crime_rate,
+    unemployment_rate,
+    education_rank
   ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+  na.omit()
+  
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+write_csv(cleaned_data, "data/analysis_data/incarceration_data.csv")
