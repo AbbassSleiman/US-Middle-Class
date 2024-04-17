@@ -14,6 +14,6 @@
 # data on poverty rates at https://worldpopulationreview.com/country-rankings/poverty-rate-by-country,
 # education rates at https://worldpopulationreview.com/country-rankings/education-rankings-by-country,
 # unemployment rates at https://worldpopulationreview.com/country-rankings/unemployment-by-country,
-# and crime rates at https://worldpopulationreview.com/country-rankings/crime-rate-by-country.
+# and violent crime rates at https://worldpopulationreview.com/country-rankings/violent-crime-rates-by-country.
 
          
