@@ -68,7 +68,6 @@ cleaned_data <- cleaned_data |>
     incarceration_rate,
     poverty_rate,
     unemployment_rate,
-    education_rank,
     education_category,
     violent_crime_rate
     ) |>
