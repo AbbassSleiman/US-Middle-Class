@@ -44,7 +44,7 @@ The remainder of this paper is structured as follows. @sec-data discusses the ra
 
 # Data {#sec-data}
 
-This paper utilizes 5 datasets, all provided by the World Population Review and each providing information on one of the 5 factors involved in this study. @sec-incarceration-data features the most recently available information on incarcerations and incarceration rates of 219 countries and territories as of 2024. @sec-poverty-data features the data on the poverty rates of 164 nations. @sec-crime-data 
+This paper utilizes 5 datasets, all provided by the World Population Review and each providing information on one of the 5 factors involved in this study. @sec-incarceration-data features the most recently available information on incarcerations and incarceration rates of 219 countries and territories as of 2024. @sec-poverty-data features the data on the poverty rates of 164 nations. @sec-crime-data .
 
 ## Incarceration Rate Dataset {#sec-incarceration-data}
 
