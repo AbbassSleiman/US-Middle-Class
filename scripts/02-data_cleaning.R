@@ -63,9 +63,14 @@ cleaned_data <- cleaned_data |>
     poverty_rate,
     crime_rate,
     unemployment_rate,
+    education_rank,
     education_category
   ) |>
   na.omit()
+
+# Convert education_category into a factor variable
+cleaned_data <- cleaned_data |>
+  mutate(education_category = factor(education_category))
 
 #### Save data ####
 write_csv(cleaned_data, "data/analysis_data/incarceration_data.csv")

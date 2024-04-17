@@ -17,6 +17,10 @@ library(here)
 #### Read data ####
 cleaned_data <- read_csv(here("data/analysis_data/incarceration_data.csv"))
 
+#### Convert education variable into factor ####
+cleaned_data <- cleaned_data |>
+  mutate(education_category = factor(education_category))
+
 #### Test Data ####
 # Test 1: Check if all values are non-negative
 test_non_negative <- all(cleaned_data$incarceration_rate >= 0) &&
@@ -36,7 +40,7 @@ test_column_classes <- class(cleaned_data$country) == "character" &&
   class(cleaned_data$poverty_rate) == "numeric" &&
   class(cleaned_data$crime_rate) == "numeric" &&
   class(cleaned_data$unemployment_rate) == "numeric" &&
-  class(cleaned_data$education_category) == "character"
+  class(cleaned_data$education_category) == "factor"
 
 # Print test results
 print(paste("Test 1 (All values are non-negative):", test_non_negative))
