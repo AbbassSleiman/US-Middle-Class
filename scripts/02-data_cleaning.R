@@ -50,7 +50,8 @@ cleaned_data <-
 # Calculate violent crime rate per country
 cleaned_data$violent_crime_rate <- rowSums(cleaned_data[, c("violent_crime_rates_by_country_hom_rate", 
                                                                   "violent_crime_rates_by_country_assault", 
-                                                                  "violent_crime_rates_by_country_sex_violence", 
+                                                                  "violent_crime_rates_by_country_sex_violence",
+                                                                  "violent_crime_rates_by_country_kidnap",
                                                                   "violent_crime_rates_by_country_robbery")], na.rm = TRUE)
 
 # Define the decile boundaries
