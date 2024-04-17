@@ -28,7 +28,20 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
+# Package loading
 library(tidyverse)
+library(here)
+library(ggplot2)
+library(knitr)
+
+# Read data
+raw_incarceration_data <- read_csv(here("data/raw_data/incarceration-rates-by-country-2024.csv"))
+raw_poverty_data <- read_csv(here("data/raw_data/poverty-rate-by-country-2024.csv"))
+raw_violent_crime_data <- read_csv(here("data/raw_data/violent-crime-rates-by-country-2024.csv"))
+raw_unemployment_data <- read_csv(here("data/raw_data/unemployment-by-country-2024.csv"))
+raw_education_data <- read_csv(here("data/raw_data/education-rankings-by-country-2024.csv"))
+
+cleaned_data <- read_csv(here("data/analysis_data/incarceration_data.csv"))
 ```
 
 
@@ -38,25 +51,108 @@ In recent decades, the United States has grappled with a consistent rise in its 
 
 Incarceration refers to the state of being confined in prison as punishment for criminal offences [@citeIncarcerationRate], and in examining the United States' prison dilemma, it becomes clear that the crux of the problem is not easily reducible to simple explanations. Instead, it is a complex issue influenced by a multitude of factors including cultural dynamics and socioeconomic conditions. Thus, in an attempt to unravel the intricacies of these factors, this paper seeks to conduct a comparative analysis of global trends in education, unemployment, crime, and poverty rates as independent factors influencing a nation's incarceration. However, recognizing that the total number of incarcerations is heavily dependent on population size, this paper focuses on nations' incarceration rates as the estimand, defined to be the number of incarcerated individuals per 100,000 in a given population [@citeIncarcerationRate], which serves as a better metric for measuring the extent of imprisonment within a society. By exploring the impact of these factors on incarceration rates, we aim to better understand the primary forces behind the United States' high incarceration rate and overall number of individuals incarcerated. This understanding will help inform policy-making decisions aimed at addressing the issue effectively.
 
-This paper utilizes various datasets from the World Population Review, in particular it utilizes their datasets on "Incarceration Rates by Country 2024", "Poverty Rate by Country 2024", "Education Rankings by Country 2024", "Unemployment by Country 2024", and "Crime Rate by Country 2024". By conducting statistical analyses with the aforementioned data, this paper finds evidence to suggest that [...]
+This paper utilizes various datasets from the World Population Review, in particular it utilizes their datasets on "Incarceration Rates by Country 2024", "Poverty Rate by Country 2024", "Education Rankings by Country 2024", "Unemployment by Country 2024", and "Violent Crime Rates by Country 2024". By conducting statistical analyses with the aforementioned data, this paper finds evidence to suggest that [...]
 
 The remainder of this paper is structured as follows. @sec-data discusses the raw data, cleaning process, variables of interest, and offers visual representations of the data through tabular and graphical representations of the observations. @sec-model introduces and justifies the Bayesian linear regression model used in the analysis of the data in predicting the relationship between the aforementioned independent variables and a nation's incarceration rate. @sec-results deals with analyzing the trends and correlations showcased by the model in more detail. @sec-discussion discusses the real-world implications of the results uncovered in the prior sections, and finally @sec-limitations discusses the limitations and weaknesses of the analysis conducted, as well as the next steps that could be taken to improve the overall reliability of the paper.
 
 # Data {#sec-data}
 
-This paper utilizes 5 datasets, all provided by the World Population Review and each providing information on one of the 5 factors involved in this study. @sec-incarceration-data features the most recently available information on incarcerations and incarceration rates of 219 countries and territories as of 2024. @sec-poverty-data features the data on the poverty rates of 164 nations. @sec-crime-data .
+This paper utilizes 5 datasets, all provided by the World Population Review and each providing information on one of the 5 factors involved in this study. The incarceration rate dataset [@citeIncarcerationRate], @sec-incarceration-data, features the most recently available information on incarcerations and incarceration rates of 219 countries and territories as of 2024. The poverty rate dataset [@citePovertyRate], @sec-poverty-data, features the data on the poverty rates of 164 nations. The violent crime rate dataset [@citeViolentCrimeRate], @sec-violent-crime-data, features data on the number of various types of violent crimes in each of 200 nations and territories per 100k members of the population. The unemployment rate dataset [@citeUnemploymentRate], @sec-unemployment-data, features data on the unemployment rate in each of 226 countries and territories. Finally, the education ranking dataset [@citeEducationRanking], @sec-education-data, contains data on the literacy rate and education rank of each of 207 countries and territories, accurate as of 2024.
+
+All data analysis was done through R [@citeR] with the aid of the following packages: 
 
 ## Incarceration Rate Dataset {#sec-incarceration-data}
 
+The raw incarceration rate dataset contains information on the incarceration rate (per 100k population), total incarcerated, percentage of incarcerated that are female, and percentage of incarcerated that are male for 219 countries and territories. A snippet of the top 10 countries ordered by incarceration rate can be seen in @tbl-incarceration-data, showcasing their rates of incarceration and total number of individuals incarcerated. It is important to note that, whilst the data provided is the most recent available for each nation, the data for each nation need not be accurate as of 2024 as varying nations may have data from different years.
+
+```{r}
+#| label: tbl-incarceration-data
+#| tbl-cap: Top 10 countries by incarceration rate
+#| echo: false
+
+raw_incarceration_data |>
+  arrange(desc(incarcerationRatesByCountry_ratePer100k)) |>
+  head(10) |>
+  select(country, incarcerationRatesByCountry_ratePer100k, incarcerationRatesByCountry_totIncarcerated) |>
+  kable(
+    col.names = c("Country", "Incarceration Rate per 100k Population", "Total Incarcerated")
+  )
+```
+
 ## Poverty Rate Dataset {#sec-poverty-data}
 
-## Crime Rate Dataset {#sec-crime-data}
+The poverty rate dataset contains information on the poverty rates in 164 nations. In particular, it provides information on the percentage of the population living on less than 10 USD per day, less than 3.65 USD per day, the poverty rate, and the year the data was collected. Here, poverty rate is measured as the percentage of a given population living below that particular nation's respective poverty line which is estimated based on population-weighted subgroup estimates from household surveys [@citePovertyRate]. This is an important clarification to make as it ensures that a nation's poverty rate is relative to the living costs in that particular nation, in turn reducing biases that could arise as a result of the vastly differing costs of living across various nations. This ensures that, in the analysis that shall follow, we are able to more accurately take into account income inequality relative to each particular nation. The top 5 countries ordered by poverty rate are showcased in @tbl-poverty-data, showcasing information on the poverty rate and year of data collection for each of the 5 countries.
+
+```{r}
+#| label: tbl-poverty-data
+#| tbl-cap: Top 5 countries by poverty rate
+#| echo: false
+
+raw_poverty_data |>
+  arrange(desc(PovertyRateValue)) |>
+  head(5) |>
+  select(country, PovertyRateValue, PovertyRateValueDataYear) |>
+  kable(
+    col.names = c("Country", "Poverty Rate", "Year Data was Collected")
+  )
+```
+
+## Violent Crime Rate Dataset {#sec-violent-crime-data}
+
+The violent crime rate dataset contains violent crime statistics for 200 nations and territories across the globe. In particular, it contains data on the homicide rate, serious assault rate, sexual violence rate, kidnapping rate, and robbery rate for each of the nations, each of which is measured to be the number of incidents per 100k population. It also features information on the year each of the data points was collected. As with the other datasets, the year of data collection for each nation varies by nation, and thus some information is more recent than others. 
+
+An important note to make regarding this information is that the definitions for each of these crimes can vary significantly from nation to nation. What one nation may deem to be a serious offence can be nothing more than a misdemeanor in another. As a result, though the data provided is based on each nation's own definition of a serious offence, the fact that we are still provided with a fairly well-rounded subset of violent crimes ranging from theft to murder will enable us to better understand what the overall rate of violent crimes per nation is comprised of. One should note that some countries have missing values for certain crime rates, indicated by an "NA". @tbl-violent-crime-data showcases a sample of 5 countries including information regarding the aforementioned crime rates for each.
+
+```{r}
+#| label: tbl-violent-crime-data
+#| tbl-cap: Sample of 5 countries and their respective rates of various violent crimes (per 100k population)
+#| echo: false
+
+raw_violent_crime_data |>
+  head(5) |>
+  select(country, violentCrimeRatesByCountry_homRate, violentCrimeRatesByCountry_assault, violentCrimeRatesByCountry_sexViolence, violentCrimeRatesByCountry_kidnap, violentCrimeRatesByCountry_robbery) |>
+  kable(
+    col.names = c("Country", "Homicide Rate", "Serious Assault Rate", "Sexual Violence Rate", "Kidnapping Rate", "Robbery Rate")
+  )
+```
 
 ## Unemployment Rate Dataset {#sec-unemployment-data}
 
+The unemployment rate dataset provides data on the unemployment rates of 226 countries and territories across the globe according to 3 various sources: the World Bank, the International Labour Organization, and the CIA, as well as the respective years that each of these organizations collected the data. Here, unemployment is defined as the percentage of unemployed workers in the labour force, which includes those who do not currently work but are able to do so [@citeUnemploymentRate]. It is important to note that, as with the other datasets, information on the nations' unemployment rates is not necessarily accurate as of 2024 and the date of collection varies from country to country. As the World Bank has information on every one of the countries and territories, this paper will utilize only data from that one source regarding unemployment rates. @tbl-unemployment-data showcases the top 5 countries by highest unemployment rates, according to the World Bank, as well as the year the data was collected.
+
+```{r}
+#| label: tbl-unemployment-data
+#| tbl-cap: Top 5 countries by highest unemployment rate (as per the World Bank)
+#| echo: false
+
+raw_unemployment_data |>
+  arrange(desc(UnemploymentRateWorldBank)) |>
+  head(5) |>
+  select(country, UnemploymentRateWorldBank,UnemploymentRateWorldBankDataYear) |>
+  kable(
+    col.names = c("Country", "Unemployment Rate", "Year Data was Collected")
+  )
+```
+
 ## Education Ranking Dataset {#sec-education-data}
 
+The education ranking dataset provides information on the literacy rate and education rank of 207 countries and territories. The dataset contains ranks assigned by various organizations, however the most recent ranking data is by the nonprofit World Top 20, who determine a nation's rank according to a number of factors including early childhood enrollment rates, high school graduation rates, primary test scores, and various other factors [@citeEducationCriteria]. The top 5 countries according to the World Top 20 in 2024 are showcased in @tbl-education-data.
 
+```{r}
+#| label: tbl-education-data
+#| tbl-cap: Top 5 countries by education (World Top 20 (2024))
+#| echo: false
+
+raw_education_data |>
+  arrange(educationRankingsByCountry_WT20rank2024) |>
+  head(5) |>
+  select(country, educationRankingsByCountry_WT20rank2024) |>
+  kable(
+    col.names = c("Country", "Education Rank")
+  )
+```
+
+## Cleaned Dataset {#sec-cleaned-data}
 
 # Model {#sec-model}
 

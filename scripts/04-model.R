@@ -29,7 +29,7 @@ cleaned_data$education_category <- relevel(cleaned_data$education_category, ref 
 ### Model data ####
 incarceration_model <-
   stan_glm(
-    formula = incarceration_rate ~ poverty_rate + crime_rate + education_category  + 
+    formula = incarceration_rate ~ poverty_rate + violent_crime_rate + education_category  + 
       unemployment_rate + education_category * poverty_rate,
     data = cleaned_data,
     family = gaussian(),
