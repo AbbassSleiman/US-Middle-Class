@@ -30,8 +30,8 @@ incarceration_rate <- round(abs(rnorm(num_countries, mean = 200, sd = 50)), 1)
 # Mean poverty rate of 15%, with standard deviation of 5, rounded to 1 decimal place
 poverty_rate <- round(abs(rnorm(num_countries, mean = 15, sd = 5)), 1)    
 
-# Mean crime rate of 40 per 100k, with standard deviation of 20, rounded to 1 decimal place
-crime_rate <- round(abs(rnorm(num_countries, mean = 40, sd = 20)), 1) 
+# Mean violent crime rate of 200 per 100k, with standard deviation of 200, rounded to 1 decimal place
+violent_crime_rate <- round(abs(rnorm(num_countries, mean = 200, sd = 200)), 1) 
 
 # Mean unemployment rate of 8%, with standard deviation of 4, rounded to 1 decimal place
 unemployment_rate <- round(abs(rnorm(num_countries, mean = 8, sd = 4)), 1)      
@@ -41,7 +41,7 @@ simulated_data <- data.frame(
   Country = paste0("Country ", 1:num_countries),
   Incarceration_Rate = incarceration_rate,
   Poverty_Rate = poverty_rate,
-  Crime_Rate = crime_rate,
+  Violent_Crime_Rate = violent_crime_rate,
   Unemployment_Rate = unemployment_rate,
   Educational_Ranking = educational_ranking
 )
@@ -50,7 +50,7 @@ simulated_data <- data.frame(
 # Test 1: Check if all values are non-negative
 test_non_negative <- all(simulated_data$Incarceration_Rate >= 0) &&
   all(simulated_data$Poverty_Rate >= 0) &&
-  all(simulated_data$Crime_Rate >= 0) &&
+  all(simulated_data$Violent_Crime_Rate >= 0) &&
   all(simulated_data$Unemployment_Rate >= 0)
 
 # Test 2: Check if there are 196 unique countries
@@ -63,14 +63,14 @@ test_unique_educational_ranking <- length(unique(simulated_data$Educational_Rank
 test_column_classes <- class(simulated_data$Country) == "character" &&
   class(simulated_data$Incarceration_Rate) == "numeric" &&
   class(simulated_data$Poverty_Rate) == "numeric" &&
-  class(simulated_data$Crime_Rate) == "numeric" &&
+  class(simulated_data$Violent_Crime_Rate) == "numeric" &&
   class(simulated_data$Unemployment_Rate) == "numeric" &&
   class(simulated_data$Educational_Ranking) == "integer"
 
 # Test 5: Check if each value is rounded to one decimal place
 test_rounding <- all(round(simulated_data$Incarceration_Rate, 1) == simulated_data$Incarceration_Rate) &&
   all(round(simulated_data$Poverty_Rate, 1) == simulated_data$Poverty_Rate) &&
-  all(round(simulated_data$Crime_Rate, 1) == simulated_data$Crime_Rate) &&
+  all(round(simulated_data$Violent_Crime_Rate, 1) == simulated_data$Violent_Crime_Rate) &&
   all(round(simulated_data$Unemployment_Rate, 1) == simulated_data$Unemployment_Rate)
 
 # Print test results
