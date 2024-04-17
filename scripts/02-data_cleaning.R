@@ -55,14 +55,14 @@ cleaned_data$violent_crime_rate <- rowSums(cleaned_data[, c("violent_crime_rates
                                                                   "violent_crime_rates_by_country_robbery")], na.rm = TRUE)
 
 # Define the decile boundaries
-decile_boundaries <- c(1, 16, 28, 41, 58, 78, 101, 119, 139, 175, 198)
+decile_boundaries <- c(1, 19, 34, 52, 71, 92, 110, 125, 147, 175, 198)
 
 # Create a new column in the dataset to store the education rank categories
 cleaned_data <- cleaned_data |>
   mutate(education_category = cut(education_rank, breaks = decile_boundaries, 
-                                  labels = c("1-16", "17-28", "29-41", "42-58", 
-                                             "59-78", "79-101", "102-119", 
-                                             "120-139", "140-175", "176-198"))) |>
+                                  labels = c("1-19", "20-34", "35-52", "53-71", 
+                                             "72-92", "93-110", "111-125", 
+                                             "126-147", "148-175", "176-198"))) |>
   select(
     country,
     incarceration_rate,
