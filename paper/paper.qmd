@@ -33,6 +33,9 @@ library(tidyverse)
 library(here)
 library(ggplot2)
 library(knitr)
+library(modelsummary)
+library(rstanarm)
+library(kableExtra)
 
 # Read data
 raw_incarceration_data <- read_csv(here("data/raw_data/incarceration-rates-by-country-2024.csv"))
@@ -42,6 +45,10 @@ raw_unemployment_data <- read_csv(here("data/raw_data/unemployment-by-country-20
 raw_education_data <- read_csv(here("data/raw_data/education-rankings-by-country-2024.csv"))
 
 cleaned_data <- read_csv(here("data/analysis_data/incarceration_data.csv"))
+
+# Read model
+analysis_model <- readRDS(file = here("models/incarceration_model.rds"))
+
 ```
 
 
@@ -69,13 +76,15 @@ The raw incarceration rate dataset contains information on the incarceration rat
 #| label: tbl-incarceration-data
 #| tbl-cap: Top 10 countries by incarceration rate
 #| echo: false
+#| tbl-pos: H
 
 raw_incarceration_data |>
   arrange(desc(incarcerationRatesByCountry_ratePer100k)) |>
   head(10) |>
   select(country, incarcerationRatesByCountry_ratePer100k, incarcerationRatesByCountry_totIncarcerated) |>
   kable(
-    col.names = c("Country", "Incarceration Rate per 100k Population", "Total Incarcerated")
+    col.names = c("Country", "Incarceration Rate per 100k Population", "Total Incarcerated"), 
+    booktabs = TRUE
   )
 ```
 
@@ -87,13 +96,15 @@ The poverty rate dataset contains information on the poverty rates in 164 nation
 #| label: tbl-poverty-data
 #| tbl-cap: Top 5 countries by poverty rate
 #| echo: false
+#| tbl-pos: H
 
 raw_poverty_data |>
   arrange(desc(PovertyRateValue)) |>
   head(5) |>
   select(country, PovertyRateValue, PovertyRateValueDataYear) |>
   kable(
-    col.names = c("Country", "Poverty Rate", "Year Data was Collected")
+    col.names = c("Country", "Poverty Rate", "Year Data was Collected"), 
+    booktabs = TRUE
   )
 ```
 
@@ -107,13 +118,20 @@ An important note to make regarding this information is that the definitions for
 #| label: tbl-violent-crime-data
 #| tbl-cap: Sample of 5 countries and their respective rates of various violent crimes (per 100k population)
 #| echo: false
+#| tbl-pos: H
 
 raw_violent_crime_data |>
   head(5) |>
   select(country, violentCrimeRatesByCountry_homRate, violentCrimeRatesByCountry_assault, violentCrimeRatesByCountry_sexViolence, violentCrimeRatesByCountry_kidnap, violentCrimeRatesByCountry_robbery) |>
   kable(
-    col.names = c("Country", "Homicide Rate", "Serious Assault Rate", "Sexual Violence Rate", "Kidnapping Rate", "Robbery Rate")
-  )
+    col.names = c("Country", "Homicide Rate", "Serious Assault Rate", "Sexual Violence Rate", "Kidnapping Rate", "Robbery Rate"), booktabs = TRUE
+  ) |>
+  column_spec(1, width = "1.8cm") |>
+  column_spec(2, width = "2.2cm") |>  # Adjust the width of the first column
+  column_spec(3, width = "2.2cm") |>  # Adjust the width of the first column
+  column_spec(4, width = "2.2cm") |>  # Adjust the width of the first column
+  column_spec(5, width = "2.2cm") |>  # Adjust the width of the first column
+  column_spec(6, width = "2.2cm")     # Adjust the width of the second column
 ```
 
 ## Unemployment Rate Dataset {#sec-unemployment-data}
@@ -124,13 +142,15 @@ The unemployment rate dataset provides data on the unemployment rates of 226 cou
 #| label: tbl-unemployment-data
 #| tbl-cap: Top 5 countries by highest unemployment rate (as per the World Bank)
 #| echo: false
+#| tbl-pos: H
 
 raw_unemployment_data |>
   arrange(desc(UnemploymentRateWorldBank)) |>
   head(5) |>
   select(country, UnemploymentRateWorldBank,UnemploymentRateWorldBankDataYear) |>
   kable(
-    col.names = c("Country", "Unemployment Rate", "Year Data was Collected")
+    col.names = c("Country", "Unemployment Rate", "Year Data was Collected"), 
+    booktabs = TRUE
   )
 ```
 
@@ -142,13 +162,14 @@ The education ranking dataset provides information on the literacy rate and educ
 #| label: tbl-education-data
 #| tbl-cap: Top 5 countries by education (World Top 20 (2024))
 #| echo: false
+#| tbl-pos: H
 
 raw_education_data |>
   arrange(educationRankingsByCountry_WT20rank2024) |>
   head(5) |>
   select(country, educationRankingsByCountry_WT20rank2024) |>
   kable(
-    col.names = c("Country", "Education Rank")
+    col.names = c("Country", "Education Rank"), booktabs = TRUE
   )
 ```
 
@@ -156,29 +177,38 @@ raw_education_data |>
 
 The finalized cleaned dataset used in the analysis that will follow was created by merging the aforementioned 5 datasets into one. In particular, only countries that were present in all 5 datasets are present in the cleaned dataset, bringing the total number of nations included in this study to 134. Further, the cleaned analysis dataset was filtered to only contain the following information from the 5 datasets: a country's name, its incarceration rate (per 100k population), its national poverty rate, its unemployment rate, its violent crime rate, and its educational ranking category. Note that a nation's violent crime rate and educational ranking category were not explicit data that were provided as part of the 5 raw datasets. Instead, these were manually constructed and appended to the final dataset during the cleaning process. 
 
-In this study, a nation's violent crime rate is defined to be the sum of all the crime rates (per 100k population) available through the violent crime dataset in order to have one final value that represents the extent of violent crime in a nation. It is important to note, however, that various nations had missing values for some of the violent crime statistics, and as a result, these values were simply treated as 0 for the sake of the sum. As for the educational ranking category, as opposed to treating educational ranking as a continuous variable in the analysis that will follow, it was instead decided to create 10 categories representing the 10 deciles of educational ranks present in the final dataset, based on the ranks of the 134 countries present, essentially splitting the countries into 10 equally sized categories by educational ranking. This was done in order to have a categorical variable whose coefficient will be more easily interpreted in the model present in @sec-model, as interpreting a 1 unit increase in educational ranking can be quite arbitrary, as moving up or down one rank educationally may be more subjective. @tbl-cleaned-data
+In this study, a nation's violent crime rate is defined to be the sum of all the crime rates (per 100k population) available through the violent crime dataset in order to have one final value that represents the extent of violent crime in a nation. It is important to note, however, that various nations had missing values for some of the violent crime statistics, and as a result, these values were simply treated as 0 for the sake of the summation. As for the educational ranking category, as opposed to treating educational ranking as a continuous variable in the analysis that will follow, we instead decided to create 10 categories representing the 10 deciles of educational ranks present in the final dataset, based on the ranks of the 134 countries present, essentially splitting the countries into 10 equally sized categories by educational ranking. This was done in order to have a categorical variable whose coefficient will be more easily interpreted in the model present in @sec-model, as interpreting a 1 unit increase in educational ranking can be quite arbitrary, as moving up or down one rank educationally may be more subjective. @tbl-cleaned-data showcases the top 5 countries by incarceration rate in the cleaned dataset.
 
 ```{r}
 #| label: tbl-cleaned-data
 #| tbl-cap: Top 5 countries by incarceration rate in the finalized cleaned dataset
 #| echo: false
+#| tbl-pos: H
 
 cleaned_data |>
   arrange(desc(incarceration_rate)) |>
   head(5) |>
   kable(
-        col.names = c("Country", "Incarceration Rate", "Poverty Rate", "Unemployment Rate", "Educational Ranking Category", "Violent Crime Rate")
-  )
+        col.names = c("Country", "Incarceration Rate", "Poverty Rate", "Unemployment Rate", "Educational Ranking Category", "Violent Crime Rate"), booktabs = TRUE
+  ) |>
+  column_spec(1, width = "2.2cm") |>
+  column_spec(2, width = "2.2cm") |>  # Adjust the width of the first column
+  column_spec(3, width = "2.2cm") |>  # Adjust the width of the first column
+  column_spec(4, width = "2.2cm") |>  # Adjust the width of the first column
+  column_spec(5, width = "2.2cm") |>  # Adjust the width of the first column
+  column_spec(6, width = "2.2cm")
 ```
 
 To gain a better understanding of the distribution of incarceration rates as a function of the independent variables, the figures below each showcase all observations, placing incarceration rates on the y-axis and independent variable on the x-axis. Moreover, we have chosen to highlight 5 particular nations in each of the figures, representing nations across the entire range of incarceration rates present in the dataset. In particular, we highlight El Salvador who has the highest incarceration rate of 1086, the United States with the 3rd highest incarceration rate of 531, Mexico with the 51st highest incarceration rate of 174, Iceland with the 5th lowest incarceration rate of 36, and Guinea-Bissau with the lowest incarceration rate of 31. Do note that these rankings are relative to the finalized dataset as opposed to the entire list of countries and territories found in the raw incarceration rate dataset. 
 
-@fig-poverty-incarceration showcases all observations by poverty rate, highlighting the aforementioned countries as well. Similarly, @fig-unemployment-incarceration showcases all observations by unemployment rate and @fig-violent-crime-incarceration by violent crime rates. Lastly, @fig-education-incarceration showcases the mean incarceration rate for each of the 10 educational ranking categories. Note that Iceland is in the "1-19" category, the United States is in the "20-34" category, Mexico is in the "35-52" category, El Salvador is in the "111-125" category, and Guinea-Bissau is in the "176-198" category.
+@fig-variable-incarceration showcases all observations by poverty rate, unemployment rate, and violent crime rates, highlighting the aforementioned countries as well. On the other hand, @fig-education-incarceration showcases the mean incarceration rate for each of the 10 educational ranking categories. Note that Iceland is in the "1-19" category, the United States is in the "20-34" category, Mexico is in the "35-52" category, El Salvador is in the "111-125" category, and Guinea-Bissau is in the "176-198" category.
 
 ```{r}
-#| label: fig-poverty-incarceration
-#| fig-cap: Scatter plot of incarceration rates by poverty rates
+#| label: fig-variable-incarceration
+#| fig-cap: Scatter plot of incarceration rates against each of the independent variables of interest.
+#| fig-subcap: ["Poverty Rate", "Unemployment Rate", "Violent Crime Rate"]
 #| echo: false
+#| layout-ncol: 2
 #| fig-pos: H
 
 ggplot(cleaned_data, aes(x = poverty_rate, y = incarceration_rate)) +
@@ -187,13 +217,6 @@ ggplot(cleaned_data, aes(x = poverty_rate, y = incarceration_rate)) +
              aes(color = country), size = 1.5) +  # Highlight specific countries
   theme_classic() +
   labs(x = "Poverty Rate", y = "Incarceration Rate")
-```
-
-```{r}
-#| label: fig-unemployment-incarceration
-#| fig-cap: Scatter plot of incarceration rates by unemployment rates
-#| echo: false
-#| fig-pos: H
 
 ggplot(cleaned_data, aes(x = unemployment_rate, y = incarceration_rate)) +
   geom_point(color = "darkgrey") +
@@ -201,13 +224,6 @@ ggplot(cleaned_data, aes(x = unemployment_rate, y = incarceration_rate)) +
              aes(color = country), size = 1.5) +  # Highlight specific countries
   theme_classic() +
   labs(x = "Unemployment Rate", y = "Incarceration Rate")
-```
-
-```{r}
-#| label: fig-violent-crime-incarceration
-#| fig-cap: Scatter plot of incarceration rates by violent crime rates
-#| echo: false
-#| fig-pos: H
 
 ggplot(cleaned_data, aes(x = violent_crime_rate, y = incarceration_rate)) +
   geom_point(color = "darkgrey") +
@@ -250,7 +266,7 @@ To gain a better understanding of the underlying data, @tbl-summary-stats provid
 #| label: tbl-summary-stats
 #| tbl-cap: Mean and standard deviation for each variable
 #| echo: false
-#| fig-pos: H
+#| tbl-pos: H
 
 # Calculate summary statistics
 mean_incarceration <- round(mean(cleaned_data$incarceration_rate, na.rm = TRUE), 2)
@@ -270,7 +286,7 @@ data <- data.frame(
 )
 
 # Print the data frame as a table using kable
-kable(data, col.names = c("Variable", "Mean", "SD"))
+kable(data, col.names = c("Variable", "Mean", "SD"), booktabs = TRUE)
 ```
 
 As it stands, by adhering to the figures above, there does not appear to be a strong correlation between any one of the variables and incarceration rates. In particular, poverty rates and unemployment rates do not showcase any particular trend in any direction. Violent crime on the other hand, does appear to show a somewhat positive correlation with incarceration rates. However what is interesting to note is that the 5 highlighted nations spanning the entire range of incarceration rates do not have a significant range of violent crime rates, at least relative to the overall range of violent crime rates in the entire dataset. The educational ranking category appears to have a negative relationship with incarceration rates, where a higher rank, i.e. a better education, seems to correspond with a lower average incarceration rate. However, somewhat interesting to note is the drop in mean incarceration rates for categories past the peak in the "111-125" ranking category. As such, given the fairly minimal information provided by the graphical and tabular figures above regarding the relationship between the variables of interest and a nation's incarceration rate, we employ a model in @sec-model to come to a more conclusive result.
@@ -303,15 +319,90 @@ In the above model:
 - $\beta_3$ is the coefficient for the predicted change in the incarceration rate of a nation given a one unit, i.e. one percentage point, increase in the nation's unemployment rate.
 - $\gamma_i$, for $i = 1, ..., 9$, represents the coefficient for the predicted change in the incarceration rate of a nation given that it is in one of the educational ranking categories, "1-19", ..., "148-175", respectively for each $i$. Notice, this implies that the base intercept assumes that a nation is in the "176-198" educational ranking category.
 
-Note, we employ [@citerstanarm] in order to run the regression. Moreover, we make use of the default priors offered by `rstanarm`, however we allow for auto scaling.
+Note, we employ `rstanarm` [@citerstanarm] in order to run the regression. Moreover, we make use of the default priors offered by `rstanarm`, however we allow for auto scaling.
 
 ### Model justification
 
-The above factors were each chosen due to the literature present regarding each of their impacts on incarceration. In particular, there is data to suggest that more impoverished individuals are more susceptible to being arrested, at least in the United States [@citePovertyImpact]. Moreover, there is research to suggest that unemployment rates seem to correlate with incarceration rates, at least over extended periods of time in the US [@citeUnemploymentImpact]. There is also literature that suggests that education significantly reduces the likelihood of incarceration, with claims that incarceration rates monotonically decline with education [@citeEducationImpact]. As for the impact of violent crime rates on incarceration rates, most research generally tends to focus on the reverse, focusing on incarceration rates' impact on violent crime. As such, this paper seeks to explore the converse in order to gain a more well-rounded understanding of how both factors influence one another on the whole.
+The above factors were each chosen due to the literature present regarding each of their impacts on incarceration. In particular, there is data to suggest that more impoverished individuals are more susceptible to being arrested, at least in the United States [@citePovertyImpact]. Moreover, there is research to suggest that unemployment rates seem to correlate with incarceration rates, at least over extended periods of time in the United States [@citeUnemploymentImpact]. There is also literature that suggests that education significantly reduces the likelihood of incarceration, with claims that incarceration rates monotonically decline with education [@citeEducationImpact]. As for the impact of violent crime rates on incarceration rates, most research generally tends to focus on the reverse, focusing on incarceration rates' impact on violent crime. As such, this paper seeks to explore the converse in order to gain a more well-rounded understanding of how both factors influence one another on the whole.
 
-A priori, we expect a linear relationship between each of these variables and a nation's incarceration rate. More specifically, we would expect that as the the level of violent crime, poverty, and unemployment rises, so too does the incarceration rate, as individuals may find themselves more likely to commit crimes as a means of survival, in turn increasing the amount of individuals that become imprisoned. On the contrary, we expect that more educated nations will generally see lower incarceration rates as better education is likely to be correlated with better standards of living and lower crime rates.
+A priori, we expect a linear relationship between each of these variables and a nation's incarceration rate. More specifically, we would expect that as the the level of violent crime, poverty, and unemployment rises, so too does the incarceration rate, as individuals may find themselves more likely to commit crimes as a means of survival, in turn increasing the amount of individuals that become imprisoned. On the contrary, we expect that more educated nations will generally see lower incarceration rates as better education is likely to be correlated with better standards of living and lower crime rates. 
 
 # Results {#sec-results}
+
+## Model Coefficients
+
+After running the regression based on the above model, we receive the following coefficient values as showcased in @tbl-incarcerationsummary. 
+
+```{r}
+#| label: tbl-incarcerationsummary
+#| tbl-cap: Model summary of the predicted impact of crime, education, unemployment, and poverty on incarceration rates.
+#| echo: false
+#| warning: false
+#| message: false
+#| tbl-pos: H
+
+modelsummary(analysis_model)
+
+```
+
+We can see that, somewhat unexpectedly, increases in the poverty rate negatively correlate with incarceration rates, as do increases in unemployment, assuming all else held constant. On the contrary, as predicted, violent crime rates correlate positively with incarceration rates, all else held constant. As for a nation's educational ranking, it appears that there is no clear relationship between education and incarceration rates as nations in the lowest category of education, "176-198", would see an increase in predicted incarceration rates as they enter categories near the median educational ranking, before then seeing more consistent decreases near the highest ranked nations.
+
+## Actual vs. Predicted Incarceration Rates
+
+In order to get a better grasp of the predictive power of our model, we compare every nation's predicted incarceration rate, given their respective qualities, to their actual incarceration rate as showcased in @fig-actualvspredicted below.
+
+```{r}
+#| label: fig-actualvspredicted
+#| tbl-cap: Comparison of actual and predicted incarceration rates.
+#| echo: false
+#| fig-pos: H
+
+# Extract coefficient estimates
+coefficients <- coef(analysis_model)
+
+# Extract predictor variables (poverty, crime, unemployment, and education)
+predictors <- cleaned_data |>
+  select(poverty_rate, violent_crime_rate, unemployment_rate, education_category)
+
+# Calculate the predicted incarceration rate for each nation
+predicted_incarceration <- (
+  coefficients["(Intercept)"] +                      
+  coefficients["poverty_rate"] * predictors$poverty_rate +
+  coefficients["violent_crime_rate"] * predictors$violent_crime_rate +
+  coefficients["unemployment_rate"] * predictors$unemployment_rate +
+  coefficients["education_category1-19"] * as.numeric(predictors$education_category == "1-19") +
+  coefficients["education_category20-34"] * as.numeric(predictors$education_category == "20-34") +
+  coefficients["education_category35-52"] * as.numeric(predictors$education_category == "35-52") +
+  coefficients["education_category53-71"] * as.numeric(predictors$education_category == "53-71") +
+  coefficients["education_category72-92"] * as.numeric(predictors$education_category == "72-92") +
+  coefficients["education_category93-110"] * as.numeric(predictors$education_category == "93-110") +
+  coefficients["education_category111-125"] * as.numeric(predictors$education_category == "111-125") +
+  coefficients["education_category126-147"] * as.numeric(predictors$education_category == "126-147") +
+  coefficients["education_category148-175"] * as.numeric(predictors$education_category == "148-175")
+)
+
+# Add predicted incarceration rate as a new column in cleaned_data
+cleaned_data <- cleaned_data |>
+  mutate(predicted_incarceration_rate = predicted_incarceration)
+
+# Graph the resultant scatter plot
+ggplot(cleaned_data, aes(x = predicted_incarceration_rate, y = incarceration_rate)) +
+  geom_point(color = "darkgrey") +  # Add points for actual incarceration rates
+  geom_abline(intercept = 0, slope = 1, color = "black", linetype = "dashed") +  # Add y=x line
+  geom_point(data = cleaned_data |> filter(country %in% c("United States", "El Salvador", "Guinea-Bissau", "Iceland", "Mexico")),
+             aes(color = country), size = 1.5) +
+  labs(x = "Predicted Incarceration Rate", y = "Actual Incarceration Rate") + 
+  theme_classic()  
+
+```
+
+In the above figure, each point represents a given nation's actual incarceration rate (on the y-axis), against their predicted incarceration rate (on the x-axis) based on our employed model. We include a dotted $y=x$ line for reference to showcase all the theoretical points where the actual incarceration rate of a nation equals the predicted incarceration rate. Note that any points below the dotted $y=x$ line signify nations whose predicted incarceration rates exceeds their actual incarceration rates, whereas points above the line signify nations whose actual exceeds their predicted. 
+
+Examining the results on the whole, it appears that the model is able to somewhat accurately predict a nation's incarceration rate, whenever that nation's actual incarceration rate is between 100 and 300. As a nation's actual incarceration rises above 300, the model loses its predictive power as it appears to significantly underestimate the nation's incarceration rate. On the other hand, with nations whose actual incarceration rates are below 100, it appears that model generally tends to overestimate the nation's incarceration rate. 
+
+We highlight the same 5 nations as done in @sec-data as they span the entire range of incarceration rates. We can see that, as observed, Iceland and Guinea-Bissau, who have the 5th lowest and lowest incarceration rates of 31 and 36, respectively, feature predicted incarceration rates that exceed their actual. El Salvador and the United States, who have the highest and 3rd highest incarceration rates of 1086 and 531, respectively, featured predicted incarceration rates far below their actual. On the other hand, Mexico, with an actual incarceration rate of 174, had a predicted incarceration rate almost exactly equal to its actual rate. Thus, these 5 nations effectively showcase where the model's predictive power is strongest - near the middle - and where it is weakest - on either extreme.
+
+We discuss the implications of these results in @sec-discussion, and in particular, how this helps in understanding the United States' issue of mass incarceration.
 
 # Discussion {#sec-discussion}
 Make note that poorer nations could also be incapable of housing more individuals in jails (use kenya as case study. 284% jail capacity) 
@@ -338,8 +429,25 @@ Make note that poorer nations could also be incapable of housing more individual
 
 ## Posterior predictive check
 
+```{r}
+#| label: fig-ppcheck-postprior
+#| echo: false
+#| fig-pos: H
+#| message: false
 
+pp_check(analysis_model) + theme_classic()
 
+posterior_vs_prior(analysis_model) + theme_classic() + coord_flip()
+```
+
+```{r}
+#| label: fig-rhat
+#| echo: false
+#| layout-ncol: 2
+#| fig-pos: H
+
+plot(analysis_model, "rhat")
+```
 \newpage
 
 
