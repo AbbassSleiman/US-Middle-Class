@@ -29,15 +29,18 @@ cleaned_data$education_category <- relevel(cleaned_data$education_category, ref 
 ### Model data ####
 incarceration_model <-
   stan_glm(
-    formula = incarceration_rate ~ poverty_rate + violent_crime_rate + education_category  + 
-      unemployment_rate,
+    formula = incarceration_rate ~ poverty_rate + violent_crime_rate + unemployment_rate  + 
+      education_category,
     data = cleaned_data,
     family = gaussian(),
     prior = c(
       # Prior specification for poverty_rate coefficient
       normal(location = 0, scale = 2.5, autoscale = TRUE),
       
-      # Prior specification for crime_rate coefficient
+      # Prior specification for violent_crime_rate coefficient
+      normal(location = 0, scale = 2.5, autoscale = TRUE),
+      
+      # Prior specification for unemployment_rate coefficient
       normal(location = 0, scale = 2.5, autoscale = TRUE),
       
       # Prior specification for education category coefficient
@@ -49,10 +52,9 @@ incarceration_model <-
       normal(location = 0, scale = 2.5, autoscale = TRUE),  # Prior for category 79-101
       normal(location = 0, scale = 2.5, autoscale = TRUE),  # Prior for category 102-119
       normal(location = 0, scale = 2.5, autoscale = TRUE),  # Prior for category 120-139
-      normal(location = 0, scale = 2.5, autoscale = TRUE),  # Prior for category 140-175
+      normal(location = 0, scale = 2.5, autoscale = TRUE)  # Prior for category 140-175
       
-      # Prior specification for unemployment_rate coefficient
-      normal(location = 0, scale = 2.5, autoscale = TRUE)
+      
     ),
     prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_aux = exponential(rate = 1, autoscale = TRUE),

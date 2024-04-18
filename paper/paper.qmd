@@ -273,16 +273,41 @@ data <- data.frame(
 kable(data, col.names = c("Variable", "Mean", "SD"))
 ```
 
+As it stands, by adhering to the figures above, there does not appear to be a strong correlation between any one of the variables and incarceration rates. In particular, poverty rates and unemployment rates do not showcase any particular trend in any direction. Violent crime on the other hand, does appear to show a somewhat positive correlation with incarceration rates. However what is interesting to note is that the 5 highlighted nations spanning the entire range of incarceration rates do not have a significant range of violent crime rates, at least relative to the overall range of violent crime rates in the entire dataset. The educational ranking category appears to have a negative relationship with incarceration rates, where a higher rank, i.e. a better education, seems to correspond with a lower average incarceration rate. However, somewhat interesting to note is the drop in mean incarceration rates for categories past the peak in the "111-125" ranking category. As such, given the fairly minimal information provided by the graphical and tabular figures above regarding the relationship between the variables of interest and a nation's incarceration rate, we employ a model in @sec-model to come to a more conclusive result.
+
 # Model {#sec-model}
 
+As the purpose of this paper is the investigation of various socioeconomic factors and their impact on a nation's incarceration rate as a means of better understanding the United States' mass incarceration problem, we will employ a model that will better enable us to infer the relationship between these various factors and incarceration rates. Then using this information, I will attempt to predict what the United States' incarceration rate should be given its own individual data for each of the determinants of incarceration rate, and subsequently uncover whether they are a good estimator of incarceration rate, or whether the problem stems from a different facet. 
 
 ## Model set-up
 
+The particular model that this paper will utilize is a Bayesian multiple linear regression model of incarceration rate as a function of the independent variables present in our analysis. In particular, the model is as follows:
 
+\begin{align} 
+y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
+\mu_i &= \beta_0 + \beta_1 poverty_{i} + \beta_2 crime_{i} + \beta_3 unemployment_{i} + \gamma_1 educ_{i} + ... + \gamma_9 educ_{i} \\
+\beta_0 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_1 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_2 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_3 &\sim \mbox{Normal}(0, 2.5) \\
+\gamma_i &\sim \mbox{Normal}(0, 2.5) \\
+\sigma &\sim \mbox{Exponential}(1)
+\end{align}
+
+In the above model:
+
+- $\mu_i$ is the predicted incarceration rate for a nation given a nation's poverty rate, violent crime rate, unemployment rate, and educational ranking category.
+- $\beta_0$ is the coefficient for the intercept.
+- $\beta_1$ is the coefficient for the predicted change in the incarceration rate of a nation given a one unit, i.e. one percentage point, increase in the nation's poverty rate.
+- $\beta_2$ is the coefficient for the predicted change in the incarceration rate of a nation given a one unit increase in the nation's violent crime rate.
+- $\beta_3$ is the coefficient for the predicted change in the incarceration rate of a nation given a one unit, i.e. one percentage point, increase in the nation's unemployment rate.
+- $\gamma_i$, for $i = 1, ..., 9$, represents the coefficient for the predicted change in the incarceration rate of a nation given that it is in one of the educational ranking categories, "1-19", ..., "148-175", respectively for each $i$. Notice, this implies that the base intercept assumes that a nation is in the "176-198" educational ranking category.
+
+Note, we employ [@citerstanarm] in order to run the regression. Moreover, we make use of the default priors offered by `rstanarm`, however we allow for auto scaling.
 
 ### Model justification
 
-
+We expect
 
 # Results {#sec-results}
 Make note that poorer nations could also be incapable of housing more individuals in jails (use kenya as case study. 284% jail capacity) 
