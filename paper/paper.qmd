@@ -15,7 +15,7 @@ format:
         \newcommand{\elandscape}{\end{landscape}}
     documentclass: article
     geometry: margin = 1.2in
-    abstract: "Over the past five decades, the United States has witnessed a decline in the percentage of adults residing in middle-class households, alongside escalating concerns about housing affordability. This study aims to assess the impact of rising costs on the living standards of middle and lower-income households, recognizing them as the most affected demographic by these economic shifts. Utilizing data from [...], we analyze changes in income distribution and evaluate the influence of economic policy changes, including interest rates and taxation, on the standards of living of these individuals. Additionally, we explore how individual-level characteristics intersect with these policies to address how best to pursue the goal of economic equity across individuals of all backgrounds. We find that [...]."
+    abstract: "Over the last 2 decades, the United States has found itself struggling with an issue of mass incarceration, leading the world in number of individuals incarcerated. This paper investigates the possible causes of this by conducting a comparative analysis of global trends in education, unemployment, crime, and poverty rates. Utilizing data from the World Population Review, and employing a Bayesian multiple linear regression model, this paper finds evidence that poverty and unemployment negatively correlate with incarceration rates, whereas violent crime rates positively correlate. The paper also identifies nuances in the relationship between educational attainment and incarceration rates. These insights may offer valuable considerations for policy-making aimed at addressing mass incarceration in the United States."
     number-sections: true
 output: 
   bookdown::pdf_document2
@@ -36,6 +36,8 @@ library(knitr)
 library(modelsummary)
 library(rstanarm)
 library(kableExtra)
+library(dplyr)
+library(janitor)
 
 # Read data
 raw_incarceration_data <- read_csv(here("data/raw_data/incarceration-rates-by-country-2024.csv"))
@@ -58,7 +60,7 @@ In recent decades, the United States has grappled with a consistent rise in its 
 
 Incarceration refers to the state of being confined in prison as punishment for criminal offences [@citeIncarcerationRate], and in examining the United States' prison dilemma, it becomes clear that the crux of the problem is not easily reducible to simple explanations. Instead, it is a complex issue influenced by a multitude of factors including cultural dynamics and socioeconomic conditions. Thus, in an attempt to unravel the intricacies of these factors, this paper seeks to conduct a comparative analysis of global trends in education, unemployment, crime, and poverty rates as independent factors influencing a nation's incarceration. However, recognizing that the total number of incarcerations is heavily dependent on population size, this paper focuses on nations' incarceration rates as the estimand, defined to be the number of incarcerated individuals per 100,000 in a given population [@citeIncarcerationRate], which serves as a better metric for measuring the extent of imprisonment within a society. By exploring the impact of these factors on incarceration rates, we aim to better understand the primary forces behind the United States' high incarceration rate and overall number of individuals incarcerated. This understanding will help inform policy-making decisions aimed at addressing the issue effectively.
 
-This paper utilizes various datasets from the World Population Review, in particular it utilizes their datasets on "Incarceration Rates by Country 2024", "Poverty Rate by Country 2024", "Education Rankings by Country 2024", "Unemployment by Country 2024", and "Violent Crime Rates by Country 2024". By conducting statistical analyses with the aforementioned data, this paper finds evidence to suggest that [...]
+This paper utilizes various datasets from the World Population Review, in particular it utilizes their datasets on "Incarceration Rates by Country 2024", "Poverty Rate by Country 2024", "Education Rankings by Country 2024", "Unemployment by Country 2024", and "Violent Crime Rates by Country 2024". By conducting statistical analyses with the aforementioned data, this paper finds evidence to suggest that poverty and unemployment negatively correlate with incarceration rates, and violent crime rates correlate positively. Education, on the other hand, appears to have a more nuanced relationship with incarceration rates as the relationship does not appear to be consistent across all levels of education.  
 
 The remainder of this paper is structured as follows. @sec-data discusses the raw data, cleaning process, variables of interest, and offers visual representations of the data through tabular and graphical representations of the observations. @sec-model introduces and justifies the Bayesian linear regression model used in the analysis of the data in predicting the relationship between the aforementioned independent variables and a nation's incarceration rate. @sec-results deals with analyzing the trends and correlations showcased by the model in more detail. @sec-discussion discusses the real-world implications of the results uncovered in the prior sections, and finally @sec-limitations discusses the limitations and weaknesses of the analysis conducted, as well as the next steps that could be taken to improve the overall reliability of the paper.
 
@@ -66,7 +68,7 @@ The remainder of this paper is structured as follows. @sec-data discusses the ra
 
 This paper utilizes 5 datasets, all provided by the World Population Review and each providing information on one of the 5 factors involved in this study. The incarceration rate dataset [@citeIncarcerationRate], @sec-incarceration-data, features the most recently available information on incarcerations and incarceration rates of 219 countries and territories as of 2024. The poverty rate dataset [@citePovertyRate], @sec-poverty-data, features the data on the poverty rates of 164 nations. The violent crime rate dataset [@citeViolentCrimeRate], @sec-violent-crime-data, features data on the number of various types of violent crimes in each of 200 nations and territories per 100k members of the population. The unemployment rate dataset [@citeUnemploymentRate], @sec-unemployment-data, features data on the unemployment rate in each of 226 countries and territories. Finally, the education ranking dataset [@citeEducationRanking], @sec-education-data, contains data on the literacy rate and education rank of each of 207 countries and territories, accurate as of 2024.
 
-All data analysis was done through R [@citeR] with the aid of the following packages: 
+All data analysis was done through R [@citeR] with the aid of the following packages: `tidyverse` [@citetidyverse], `here` [@citehere], `ggplot2` [@citeggplot2], `knitr` [@citeknitr], `modelsummary` [@citemodelsummary], `rstanarm` [@citerstanarm], `kableExtra` [@citekableExtra], `dplyr` [@citedplyr], and `janitor` [@citejanitor].
 
 ## Incarceration Rate Dataset {#sec-incarceration-data}
 
@@ -337,7 +339,7 @@ A priori, we expect a linear relationship between each of these variables and a 
 
 # Results {#sec-results}
 
-## Model Coefficients
+## Model Coefficients {#sec-modelcoefficients}
 
 After running the regression based on the above model, we receive the following coefficient values as showcased in @tbl-incarcerationsummary. 
 
@@ -355,7 +357,7 @@ modelsummary(analysis_model)
 
 We can see that, somewhat unexpectedly, increases in the poverty rate negatively correlate with incarceration rates, as do increases in unemployment, assuming all else held constant. On the contrary, as predicted, violent crime rates correlate positively with incarceration rates, all else held constant. As for a nation's educational ranking, it appears that there is no clear relationship between education and incarceration rates as nations in the highest category of education, "1-19", would see a much larger increase in predicted incarceration rates as they enter categories near the median educational ranking, before then seeing smaller increase near the lowest ranked nations.
 
-## Actual vs. Predicted Incarceration Rates
+## Actual vs. Predicted Incarceration Rates {#sec-actualvspredicted}
 
 In order to get a better grasp of the predictive power of our model, we compare every nation's predicted incarceration rate, given their respective qualities, to their actual incarceration rate as showcased in @fig-actualvspredicted below.
 
@@ -414,26 +416,48 @@ We discuss the implications of these results in @sec-discussion, and in particul
 
 # Discussion {#sec-discussion}
 
-## Nations with extreme incarceration rates necessitate the need to consider additional factors beyond the model's scope
+## Nations with extreme incarceration rates necessitate the need to consider additional factors beyond the model's scope {#sec-culture}
 
-As the results in @sec-results have shown, nations with excessively high and excessively low incarceration rates have various qualities about them, outside the scope of our model, that may better explain how and why they may find themselves with the incarceration rates that they do have. In particular, various cultural differences across nations such as differences in how nations view the idea of incarceration could significantly impact how various countries choose to deal with crime. 
+As the results in @sec-actualvspredicted have shown, nations with excessively high and excessively low incarceration rates have various qualities about them, outside the scope of our model, that may better explain how and why they may find themselves with the incarceration rates that they do have. In particular, various cultural differences across nations such as differences in how nations view the idea of incarceration could significantly impact how various countries choose to deal with crime. 
 
 Countries such as Norway prioritize rehabilitation over punitive measures, leading to recidivism rates as low as 20%. On the contrary, the United States - who focus much more heavily on punishment than rehabilitation - finds over two-thirds of released prisoners returning back to the criminal justice system within 2 years [@citeNorwayUS]. Such stark differences in how nations choose to deal with crime can vastly impact how likely they are to incarcerate an individual, as well as how likely incarcerated individuals are to return to crime. In essence, prioritizing punishment as a deterrent can create a vicious cycle of high incarceration rates subsequently leading to high crime rates, in turn necessitating the need for more punishment, continuing the cycle.
 
 Thus, it could appear that countries who suffer from mass incarceration, such as the United States, may find themselves in these positions by their own volition, as they choose to focus on harming their prisoners than helping.
 
-## Financial hardships and corruption at the national level may prevent nations from incarcerating when necessary 
+## Economic hardships and corruption at the national level may prevent nations from incarcerating when necessary {#sec-povertycorruption}
 
 The results in @tbl-incarcerationsummary indicated a negative relationship between poverty rates and incarceration rates, suggesting that nations with a generally poorer population, relative to that particular nation's cost of living, and higher income inequality may find themselves with lower incarceration rates. Though this may seem counter-intuitive at first glance, a potential explanation could be that poorer nations are simply less capable of handling crime. In particular, nations may not have the funding necessary to house criminals or hire a sufficient number of individuals to police the nation. For instance Kenya, who feature a poverty rate of 36.1% well above the median but an incarceration rate of 107 fairly below the median, also happen to have a jail occupancy level of 173.2% as of 2022 [@citeKenyaJail]. This could help explain Kenya's relatively low incarceration rate as being the result of an inability to house more inmates.
 
 Another important point to raise is the effect of national poverty on the extent of corruption within a nation. Studies generally show that the levels of corruption in developing nations outweigh those of developed nations [@citeCorruption]. As a result, it may be the case that poorer nations find themselves with lower incarceration rates as individuals are more easily capable of avoiding imprisonment through means such as bribery. In turn, extreme poverty can in turn lead to a lack of incarceration both due to financial concerns as well as higher rates of corruption.
 
-## Third discussion point
+## Educational attainment as a nuanced metric of incarceration rates {#sec-educationincarceration}
+
+As was explored in @sec-modelcoefficients, we found that there was no consistent relationship between educational ranking and incarceration rates. In particular, though the highest educationally ranked nations found themselves with lower incarceration rates than those with poorer education, the extent to which incarceration rates were predicted to rise with a decrease in education varied depending on how much the educational ranking would fall. Somewhat counter intuitively, a nation falling from the highest educational category to that of the ranks "111-125" would find themselves with the highest increase in incarceration rates compared to a further worsening of education to even the lowest category of "176-198". 
+
+The possible explanations for this are twofold: Firstly, as was previously examined in @sec-culture, incarceration rates can be heavily dependent on cultural aspects that were not taken into account via the model. As such, certain nations with exceedingly low or exceedingly high incarceration rates may be disproportionately affecting the mean incarceration rates of their respective educational ranking categories, in turn leading to inaccurate conclusions regarding the impact of education on incarceration rates. To illustrate this point further, El Salvador who feature the highest incarceration rate of 1086, also happen to be in the educational ranking category of "111-125", which may explain why the model predicts that this particular category is likely to raise a nation's incarceration rate by the greatest margin. 
+
+The second possible explanation could be that nations with poorer levels of education are likely to also be poorer economically, which, as explored in @sec-povertycorruption, could lead to lower incarceration rates, in turn providing a possible explanation for why nations with the lowest levels of education also happen to feature lower incarceration rates than some nations with better education. 
+
+## Insights for addressing the mass incarceration challenge in the United States drawn from the data and results
+
+By incorporating all insights derived from @sec-actualvspredicted, @sec-povertycorruption, and @sec-educationincarceration, we arrive to the following conclusions for how the United States can best address their issue of mass incarceration:
+
+(1) The United States should stray from punitive measures as the primary means of dealing with crime as this can perpetuate a cycle of high incarceration rates, recidivism, and crime. Instead, shifting towards rehabilitation-oriented policies, such as those endorsed by nations like Norway, can be more effective in reducing the need for incarceration, and reduce the likelihood of repeat-offenders.
+
+(2) The United States should dedicate more resources towards enhancing their educational prowess. As it stands, the United States has an education ranked between "20-34", and as a result, given the overwhelming evidence that nations with the highest educational strength also happen to have the lowest incarceration rates, an increase in investment in education can aid the United States in decreasing both their violent crime rate, as well as the need for mass incarceration. Though we have uncovered that education can be closely linked to other factors of a nation including economic strength and standards of living, the United States is one of the most economically powerful nations, and as a result, we may come to the justified conclusion that improvements in their education are likely to yield positive results akin to that of similar nations.
 
 
-# Weaknesses and next steps {#sec-limitations}
+# Limitations and Next Steps {#sec-limitations}
 
-(Limitation, could be better to group nations into groups where they share similar cultural values and whatnot in order to account for differences in culture.)
+## Limitations
+
+There are a number of limitations to be addressed with regards to the analysis conducted and subsequent conclusions drawn. A significant limitation pertaining to this study is the lack of up-to-date data across all nations. As was discuss is @sec-data, all raw datasets contained information on nations that may not be accurate as of 2024. In particular, many nations had data that was collected years, and in some cases decades, ago, in turn potentially rendering much of the analysis inaccurate as significant changes could have risen over the years. Moreover, not all datasets included information on all nations, and in many cases, countries that were included in some datasets featured missing data points for various qualities of differing nations. As a result, the subset of countries that were included in this study may not accurately reflect the overarching global trends as only 134 out of the 193 countries recognized by the UN [@citeUN] were taken into account during the analysis. Thus, the subsequent conclusions drawn may be biased as the remaining countries left in the study could be skewed towards more developed nations as these may be more likely to have data readily available. Moreover, due to the missing data points for countries that were included in the study, values such as the violent crime rate statistic that was calculated for each nation is inaccurate as it only included whatever information was available on that particular nation. As a result, nations which may have reported more crime rates than others would in turn bias the results to inaccurately portray such nations as having relatively more crime than they should when compared with nations that had missing data points for certain crime statistics. 
+
+A potentially significant limitation also exists with regards to the model used. In particular, the model does not take into account any interaction terms between the various independent variables when it likely should have, given the complex and intricate dynamics between the many variables at play. Though this was done to simplify the complexity of the model to allow for easier interpretations of the results, the caveat was an overall less realistic, and possibly less accurate, model. Another limitation with the model lies in its omission of cultural variations and associated factors across nations. By not grouping countries with similar cultural values or political and judicial policies, the model fails to account for factors that could greatly influence the derived results. As we have already explored in @sec-culture, varying cultural and societal norms with regards to how nations deal with crime can significantly impact their incarceration rates, a fact not taken into account by the model.
+
+## Next Steps
+
+Future analysis in the context of this study can be better improved by incorporating more up-to-date data. In particular, web-scraping and compiling the raw data manually as opposed to using the raw datasets used in this study could net an overall more recent, and complete, set of data points. Moreover, incorporating time series data spanning multiple years across all nations would allow us to account for time and country fixed-effects, in turn providing more conclusive data that takes into account the various cultural and societal disparities across nations, and years. Another improvement that could be made is a better analysis of the model itself in order to fine-tune aspects such as the locations of the various priors, as well as exploring the possibility of adding additional factors and interaction terms to more accurately model incarceration rates.
 
 \newpage
 
@@ -441,31 +465,82 @@ Another important point to raise is the effect of national poverty on the extent
 
 # Appendix {-}
 
-
-# Additional data details
-
-# Model details {#sec-model-details}
+# Model details
 
 ## Posterior predictive check
 
+We employ the use a posterior predictive check in @fig-ppcheck to evaluate how well the model fits the data. By examining the figure, it appears as though the model does not accurately fit the data, and thus amendments likely should be made as a result [@citeAlexander].
+
 ```{r}
-#| label: fig-ppcheck-postprior
+#| label: fig-ppcheck
+#| fig-cap: Examining how the model fits, and is affected by, the data through a posterior predictive check
 #| echo: false
 #| fig-pos: H
 #| message: false
+#| warning: false
 
-pp_check(analysis_model) + theme_classic()
-
-posterior_vs_prior(analysis_model) + theme_classic() + coord_flip()
+pp_check(analysis_model) + 
+  theme_classic() +
+  theme(legend.position = "bottom")
 ```
+
+## Comparison of the posterior and prior
+
+We compare the posterior and prior in @fig-postprior to examine how the estimates change once data is taken into account [@citeAlexander].
 
 ```{r}
-#| label: fig-rhat
+#| label: fig-postprior
+#| fig-cap: Examining how the model fits, and is affected by, the data through a posterior-prior comparison
 #| echo: false
+#| warning: false
+#| fig-pos: H
+#| message: false
+
+
+posterior_vs_prior(analysis_model) + 
+  theme_classic() + 
+  theme(legend.position = "bottom") +
+  coord_flip()
+```
+
+## Markov Chain Monte Carlo Convergence
+
+As `rstanarm` makes use of the sampling algorithm MCMC [@citeAlexander], we examine whether the algorithm ran into issues through the use of an Rhat plot and trace plot, both showcased in @fig-mcmc. The Rhat plot does not indicate any issues, evidenced by the values all remaining close to 1 [@citeAlexander]. Moreover, the trace plot suggests nothing out of the ordinary given that lines remain horizontal and fluctuate in an expected manner [@citeAlexander].
+
+```{r}
+#| label: fig-mcmc
+#| fig-cap: "Checking the convergence of the MCMC algorithm"
+#| fig-subcap: ["Rhat plot", "Trace plot"]
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-pos: H
+#| layout-ncol: 1
+
+plot(analysis_model, "rhat") + 
+  theme_classic()
+
+plot(analysis_model, "trace") 
+
+```
+
+## Credibility Intervals
+
+Lastly, we employ a 95% credibility interval as showcased in @fig-ci, to gain a better understanding of the probability distribution of our coefficients.
+
+```{r}
+#| label: fig-ci
+#| fig-cap: "Credible intervals"
+#| echo: false
+#| message: false
+#| warning: false
 #| fig-pos: H
 
-plot(analysis_model, "rhat")
+plot(analysis_model) + 
+  theme_classic()
+
 ```
+
 \newpage
 
 
