@@ -13,7 +13,6 @@ library(tidyverse)
 library(janitor)
 library(here)
 library(dplyr)
-library(arrow)
 
 #### Read data ####
 raw_incarceration_data <- 
@@ -79,4 +78,4 @@ cleaned_data <- cleaned_data |>
   mutate(education_category = factor(education_category))
 
 #### Save data ####
-write_parquet(x = cleaned_data, sink = "data/analysis_data/incarceration_data.parquet")
+write_csv(cleaned_data, "data/analysis_data/incarceration_data.csv")
