@@ -24,7 +24,7 @@ cleaned_data <- cleaned_data |>
   mutate(education_category = factor(education_category))
 
 #### Make the 176-198 the reference category ####
-cleaned_data$education_category <- relevel(cleaned_data$education_category, ref = "176-198")
+cleaned_data$education_category <- relevel(cleaned_data$education_category, ref = "1-19")
 
 ### Model data ####
 incarceration_model <-

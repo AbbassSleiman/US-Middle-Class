@@ -317,7 +317,7 @@ In the above model:
 - $\beta_1$ is the coefficient for the predicted change in the incarceration rate of a nation given a one unit, i.e. one percentage point, increase in the nation's poverty rate.
 - $\beta_2$ is the coefficient for the predicted change in the incarceration rate of a nation given a one unit increase in the nation's violent crime rate.
 - $\beta_3$ is the coefficient for the predicted change in the incarceration rate of a nation given a one unit, i.e. one percentage point, increase in the nation's unemployment rate.
-- $\gamma_i$, for $i = 1, ..., 9$, represents the coefficient for the predicted change in the incarceration rate of a nation given that it is in one of the educational ranking categories, "1-19", ..., "148-175", respectively for each $i$. Notice, this implies that the base intercept assumes that a nation is in the "176-198" educational ranking category.
+- $\gamma_i$, for $i = 1, ..., 9$, represents the coefficient for the predicted change in the incarceration rate of a nation given that it is in one of the educational ranking categories, "20-34", ..., "176-198", respectively for each $i$. Notice, this implies that the base intercept assumes that a nation is in the "1-19" educational ranking category.
 
 Note, we employ `rstanarm` [@citerstanarm] in order to run the regression. Moreover, we make use of the default priors offered by `rstanarm`, however we allow for auto scaling.
 
@@ -345,7 +345,7 @@ modelsummary(analysis_model)
 
 ```
 
-We can see that, somewhat unexpectedly, increases in the poverty rate negatively correlate with incarceration rates, as do increases in unemployment, assuming all else held constant. On the contrary, as predicted, violent crime rates correlate positively with incarceration rates, all else held constant. As for a nation's educational ranking, it appears that there is no clear relationship between education and incarceration rates as nations in the lowest category of education, "176-198", would see an increase in predicted incarceration rates as they enter categories near the median educational ranking, before then seeing more consistent decreases near the highest ranked nations.
+We can see that, somewhat unexpectedly, increases in the poverty rate negatively correlate with incarceration rates, as do increases in unemployment, assuming all else held constant. On the contrary, as predicted, violent crime rates correlate positively with incarceration rates, all else held constant. As for a nation's educational ranking, it appears that there is no clear relationship between education and incarceration rates as nations in the highest category of education, "1-19", would see a much larger increase in predicted incarceration rates as they enter categories near the median educational ranking, before then seeing smaller increase near the lowest ranked nations.
 
 ## Actual vs. Predicted Incarceration Rates
 
@@ -370,7 +370,6 @@ predicted_incarceration <- (
   coefficients["poverty_rate"] * predictors$poverty_rate +
   coefficients["violent_crime_rate"] * predictors$violent_crime_rate +
   coefficients["unemployment_rate"] * predictors$unemployment_rate +
-  coefficients["education_category1-19"] * as.numeric(predictors$education_category == "1-19") +
   coefficients["education_category20-34"] * as.numeric(predictors$education_category == "20-34") +
   coefficients["education_category35-52"] * as.numeric(predictors$education_category == "35-52") +
   coefficients["education_category53-71"] * as.numeric(predictors$education_category == "53-71") +
@@ -378,7 +377,8 @@ predicted_incarceration <- (
   coefficients["education_category93-110"] * as.numeric(predictors$education_category == "93-110") +
   coefficients["education_category111-125"] * as.numeric(predictors$education_category == "111-125") +
   coefficients["education_category126-147"] * as.numeric(predictors$education_category == "126-147") +
-  coefficients["education_category148-175"] * as.numeric(predictors$education_category == "148-175")
+  coefficients["education_category148-175"] * as.numeric(predictors$education_category == "148-175") +
+  coefficients["education_category176-198"] * as.numeric(predictors$education_category == "176-198") 
 )
 
 # Add predicted incarceration rate as a new column in cleaned_data
@@ -443,7 +443,6 @@ posterior_vs_prior(analysis_model) + theme_classic() + coord_flip()
 ```{r}
 #| label: fig-rhat
 #| echo: false
-#| layout-ncol: 2
 #| fig-pos: H
 
 plot(analysis_model, "rhat")
