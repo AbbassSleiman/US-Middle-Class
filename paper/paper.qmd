@@ -260,33 +260,41 @@ ggplot(mean_incarceration, aes(x = education_category, y = mean_incarceration_ra
 
 ```
 
-To gain a better understanding of the underlying data, @tbl-summary-stats provides information on the overall mean and standard deviation of each of the variables present in the cleaned dataset.
+To gain a better understanding of the underlying data, @tbl-summary-stats provides information on the overall mean, median, and standard deviation of each of the variables present in the cleaned dataset.
 
 ```{r}
 #| label: tbl-summary-stats
-#| tbl-cap: Mean and standard deviation for each variable
+#| tbl-cap: Mean, median, and standard deviation for each variable
 #| echo: false
 #| tbl-pos: H
 
 # Calculate summary statistics
 mean_incarceration <- round(mean(cleaned_data$incarceration_rate, na.rm = TRUE), 2)
 sd_incarceration <- round(sd(cleaned_data$incarceration_rate, na.rm = TRUE), 2)
+median_incarceration <- round(median(cleaned_data$incarceration_rate, na.rm = TRUE), 2)
+
 mean_poverty <- round(mean(cleaned_data$poverty_rate, na.rm = TRUE), 2)
 sd_poverty <- round(sd(cleaned_data$poverty_rate, na.rm = TRUE), 2)
+median_poverty <- round(median(cleaned_data$poverty_rate, na.rm = TRUE), 2)
+
 mean_unemployment <- round(mean(cleaned_data$unemployment_rate, na.rm = TRUE), 2)
 sd_unemployment <- round(sd(cleaned_data$unemployment_rate, na.rm = TRUE), 2)
+median_unemployment <- round(median(cleaned_data$unemployment_rate, na.rm = TRUE), 2)
+
 mean_violent <- round(mean(cleaned_data$violent_crime_rate, na.rm = TRUE), 2)
 sd_violent <- round(sd(cleaned_data$violent_crime_rate, na.rm = TRUE), 2)
+median_violent <- round(median(cleaned_data$violent_crime_rate, na.rm = TRUE), 2)
 
 # Create a data frame manually
 data <- data.frame(
   Variable = c("Incarceration Rate", "Poverty Rate", "Unemployment Rate", "Violent Crime Rate"),
   Mean = c(mean_incarceration, mean_poverty, mean_unemployment, mean_violent),
+  Median = c(median_incarceration, median_poverty, median_unemployment, median_violent),
   SD = c(sd_incarceration, sd_poverty, sd_unemployment, sd_violent)
 )
 
 # Print the data frame as a table using kable
-kable(data, col.names = c("Variable", "Mean", "SD"), booktabs = TRUE)
+kable(data, col.names = c("Variable", "Mean", "Median", "SD"), booktabs = TRUE)
 ```
 
 As it stands, by adhering to the figures above, there does not appear to be a strong correlation between any one of the variables and incarceration rates. In particular, poverty rates and unemployment rates do not showcase any particular trend in any direction. Violent crime on the other hand, does appear to show a somewhat positive correlation with incarceration rates. However what is interesting to note is that the 5 highlighted nations spanning the entire range of incarceration rates do not have a significant range of violent crime rates, at least relative to the overall range of violent crime rates in the entire dataset. The educational ranking category appears to have a negative relationship with incarceration rates, where a higher rank, i.e. a better education, seems to correspond with a lower average incarceration rate. However, somewhat interesting to note is the drop in mean incarceration rates for categories past the peak in the "111-125" ranking category. As such, given the fairly minimal information provided by the graphical and tabular figures above regarding the relationship between the variables of interest and a nation's incarceration rate, we employ a model in @sec-model to come to a more conclusive result.
@@ -405,16 +413,27 @@ We highlight the same 5 nations as done in @sec-data as they span the entire ran
 We discuss the implications of these results in @sec-discussion, and in particular, how this helps in understanding the United States' issue of mass incarceration.
 
 # Discussion {#sec-discussion}
-Make note that poorer nations could also be incapable of housing more individuals in jails (use kenya as case study. 284% jail capacity) 
 
-## First discussion point {#sec-first-point}
+## Nations with extreme incarceration rates necessitate the need to consider additional factors beyond the model's scope
 
-## Second discussion point
+As the results in @sec-results have shown, nations with excessively high and excessively low incarceration rates have various qualities about them, outside the scope of our model, that may better explain how and why they may find themselves with the incarceration rates that they do have. In particular, various cultural differences across nations such as differences in how nations view the idea of incarceration could significantly impact how various countries choose to deal with crime. 
+
+Countries such as Norway prioritize rehabilitation over punitive measures, leading to recidivism rates as low as 20%. On the contrary, the United States - who focus much more heavily on punishment than rehabilitation - finds over two-thirds of released prisoners returning back to the criminal justice system within 2 years [@citeNorwayUS]. Such stark differences in how nations choose to deal with crime can vastly impact how likely they are to incarcerate an individual, as well as how likely incarcerated individuals are to return to crime. In essence, prioritizing punishment as a deterrent can create a vicious cycle of high incarceration rates subsequently leading to high crime rates, in turn necessitating the need for more punishment, continuing the cycle.
+
+Thus, it could appear that countries who suffer from mass incarceration, such as the United States, may find themselves in these positions by their own volition, as they choose to focus on harming their prisoners than helping.
+
+## Financial hardships and corruption at the national level may prevent nations from incarcerating when necessary 
+
+The results in @tbl-incarcerationsummary indicated a negative relationship between poverty rates and incarceration rates, suggesting that nations with a generally poorer population, relative to that particular nation's cost of living, and higher income inequality may find themselves with lower incarceration rates. Though this may seem counter-intuitive at first glance, a potential explanation could be that poorer nations are simply less capable of handling crime. In particular, nations may not have the funding necessary to house criminals or hire a sufficient number of individuals to police the nation. For instance Kenya, who feature a poverty rate of 36.1% well above the median but an incarceration rate of 107 fairly below the median, also happen to have a jail occupancy level of 173.2% as of 2022 [@citeKenyaJail]. This could help explain Kenya's relatively low incarceration rate as being the result of an inability to house more inmates.
+
+Another important point to raise is the effect of national poverty on the extent of corruption within a nation. Studies generally show that the levels of corruption in developing nations outweigh those of developed nations [@citeCorruption]. As a result, it may be the case that poorer nations find themselves with lower incarceration rates as individuals are more easily capable of avoiding imprisonment through means such as bribery. In turn, extreme poverty can in turn lead to a lack of incarceration both due to financial concerns as well as higher rates of corruption.
 
 ## Third discussion point
 
 
 # Weaknesses and next steps {#sec-limitations}
+
+(Limitation, could be better to group nations into groups where they share similar cultural values and whatnot in order to account for differences in culture.)
 
 \newpage
 
