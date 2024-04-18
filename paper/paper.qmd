@@ -307,12 +307,14 @@ Note, we employ [@citerstanarm] in order to run the regression. Moreover, we mak
 
 ### Model justification
 
-We expect
+The above factors were each chosen due to the literature present regarding each of their impacts on incarceration. In particular, there is data to suggest that more impoverished individuals are more susceptible to being arrested, at least in the United States [@citePovertyImpact]. Moreover, there is research to suggest that unemployment rates seem to correlate with incarceration rates, at least over extended periods of time in the US [@citeUnemploymentImpact]. There is also literature that suggests that education significantly reduces the likelihood of incarceration, with claims that incarceration rates monotonically decline with education [@citeEducationImpact]. As for the impact of violent crime rates on incarceration rates, most research generally tends to focus on the reverse, focusing on incarceration rates' impact on violent crime. As such, this paper seeks to explore the converse in order to gain a more well-rounded understanding of how both factors influence one another on the whole.
+
+A priori, we expect a linear relationship between each of these variables and a nation's incarceration rate. More specifically, we would expect that as the the level of violent crime, poverty, and unemployment rises, so too does the incarceration rate, as individuals may find themselves more likely to commit crimes as a means of survival, in turn increasing the amount of individuals that become imprisoned. On the contrary, we expect that more educated nations will generally see lower incarceration rates as better education is likely to be correlated with better standards of living and lower crime rates.
 
 # Results {#sec-results}
-Make note that poorer nations could also be incapable of housing more individuals in jails (use kenya as case study. 284% jail capacity) 
 
 # Discussion {#sec-discussion}
+Make note that poorer nations could also be incapable of housing more individuals in jails (use kenya as case study. 284% jail capacity) 
 
 ## First discussion point {#sec-first-point}
 

@@ -1,4 +1,4 @@
-# US Middle Class
+# US Incarceration Rate
 
 ## Overview
 
@@ -16,6 +16,16 @@ The repo is structured as:
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
 -   `scripts` contains the R scripts used to simulate, download and clean data.
 
+## Parquet Usage
+
+I acknowledge that the usage of a parquet would have been ideal as opposed to saving the analysis data as a csv. Unfortunately, due to a recent update, an error with writing files as a parquet prevented me from being able to save the data as a parquet in a timely manner.
+
+## Raw Data
+
+The raw data can be publically accessed and downloaded from the following links:
+- `...` can be downloaded at ...
+
+Note that the data could not be automatically downloaded using a script as accessing the data requires the user to input their email when attempting to download. The raw data will be immediately emailed to the user as a result for use.
 
 ## Statement on LLM usage
 
