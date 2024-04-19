@@ -3,7 +3,7 @@ title: "Behind Bars and Beyond: Investigating Socioeconomic Drivers of Incarcera
 subtitle: "A comparative analysis of global trends and America's mass incarceration crisis."
 author: 
   - Abbass Sleiman
-thanks: "Code and data are available at: [https://github.com/AbbassSleiman/US-Middle-Class](https://github.com/AbbassSleiman/US-Middle-Class)."
+thanks: "Code and data are available at: [https://github.com/AbbassSleiman/US-Middle-Class](https://github.com/AbbassSleiman/US-Middle-Class). Shiny webapp can be accessed at []()"
 date: today
 date-format: long
 format: 
@@ -38,6 +38,7 @@ library(rstanarm)
 library(kableExtra)
 library(dplyr)
 library(janitor)
+library(shiny)
 
 # Read data
 raw_incarceration_data <- read_csv(here("data/raw_data/incarceration-rates-by-country-2024.csv"))
@@ -68,7 +69,7 @@ The remainder of this paper is structured as follows. @sec-data discusses the ra
 
 This paper utilizes 5 datasets, all provided by the World Population Review and each providing information on one of the 5 factors involved in this study. The incarceration rate dataset [@citeIncarcerationRate], @sec-incarceration-data, features the most recently available information on incarcerations and incarceration rates of 219 countries and territories as of 2024. The poverty rate dataset [@citePovertyRate], @sec-poverty-data, features the data on the poverty rates of 164 nations. The violent crime rate dataset [@citeViolentCrimeRate], @sec-violent-crime-data, features data on the number of various types of violent crimes in each of 200 nations and territories per 100k members of the population. The unemployment rate dataset [@citeUnemploymentRate], @sec-unemployment-data, features data on the unemployment rate in each of 226 countries and territories. Finally, the education ranking dataset [@citeEducationRanking], @sec-education-data, contains data on the literacy rate and education rank of each of 207 countries and territories, accurate as of 2024.
 
-All data analysis was done through R [@citeR] with the aid of the following packages: `tidyverse` [@citetidyverse], `here` [@citehere], `ggplot2` [@citeggplot2], `knitr` [@citeknitr], `modelsummary` [@citemodelsummary], `rstanarm` [@citerstanarm], `kableExtra` [@citekableExtra], `dplyr` [@citedplyr], and `janitor` [@citejanitor].
+All data analysis was done through R [@citeR] with the aid of the following packages: `tidyverse` [@citetidyverse], `here` [@citehere], `ggplot2` [@citeggplot2], `knitr` [@citeknitr], `modelsummary` [@citemodelsummary], `rstanarm` [@citerstanarm], `kableExtra` [@citekableExtra], `dplyr` [@citedplyr], and `janitor` [@citejanitor]. Moreover, the shiny web app associated with this paper was made with the aid of the `shiny` package [@citeshiny].
 
 ## Incarceration Rate Dataset {#sec-incarceration-data}
 
