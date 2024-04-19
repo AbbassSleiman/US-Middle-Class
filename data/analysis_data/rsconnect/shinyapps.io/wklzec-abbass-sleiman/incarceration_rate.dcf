@@ -5,7 +5,7 @@ account: wklzec-abbass-sleiman
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11804666
-bundleId: 8512840
+bundleId: 8512869
 url: https://wklzec-abbass-sleiman.shinyapps.io/incarceration_rate/
 version: 1
 asMultiple: FALSE

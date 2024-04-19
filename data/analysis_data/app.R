@@ -1,10 +1,9 @@
 # Load necessary libraries
 library(shiny)
 library(ggplot2)
-library(here)
 library(tidyverse)
 
-incarceration_data <- read_csv(here("data/analysis_data/incarceration_data.csv"))
+incarceration_data <- read_csv("incarceration_data.csv")
 
 incarceration_data <- incarceration_data |>
   mutate(education_category = factor(education_category))
@@ -39,19 +38,19 @@ server <- function(input, output) {
       ggplot(incarceration_data, aes(x = violent_crime_rate, y = incarceration_rate)) +
         geom_point() +
         theme_classic() +
-        labs(x = "Violent Crime Rate", y = "Incarceration Rate")
+        labs(x = "Violent Crime Rate (per 100k population)", y = "Incarceration Rate")
     } else if (input$metric == "Unemployment Rate") {
       # Generate plot for unemployment rate
       ggplot(incarceration_data, aes(x = unemployment_rate, y = incarceration_rate)) +
         geom_point() +
         theme_classic() +
-        labs(x = "Unemployment Rate", y = "Incarceration Rate")
+        labs(x = "Unemployment Rate (%)", y = "Incarceration Rate")
     } else if (input$metric == "Poverty Rate") {
       # Generate plot for poverty rate
       ggplot(incarceration_data, aes(x = poverty_rate, y = incarceration_rate)) +
         geom_point() +
         theme_classic() +
-        labs(x = "Poverty Rate", y = "Incarceration Rate")
+        labs(x = "Poverty Rate (%)", y = "Incarceration Rate")
     } else if (input$metric == "Educational Ranking Category") {
       # Generate plot for educational ranking category
       selected_categories <- input$categories
