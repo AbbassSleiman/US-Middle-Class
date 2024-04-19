@@ -9,7 +9,7 @@ This repo contains the data, `R` scripts, `shiny` web app, and final `PDF` repor
 
 The repo is structured as follows:
 
--   `data` contains the data sources used in analysis including the raw and cleaned data, as well as the `shiny` web app. The section `Raw Data` below explains how one could gain access to the raw datasets. Note that the `shiny` web app is contained in this folder, in particular under `data/analysis_data` as the the app must be in the same location as the dataset in order to run properly when uploaded.
+-   `data` contains the data sources used in analysis including the raw and cleaned data, as well as the `shiny` web app. The section `Raw Data` below explains how one could gain access to the raw datasets. Note that the `shiny` web app is contained in this folder, in particular under `data/analysis_data`, as the the app must be in the same location as the dataset in order to run properly when uploaded.
 -   `other` contains details about LLM chat interactions and sketches.
 -   `models` contains fitted models. 
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
