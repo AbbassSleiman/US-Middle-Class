@@ -467,7 +467,7 @@ Future analysis in the context of this study can be better improved by incorpora
 
 # Model details
 
-## Posterior predictive check
+## Posterior Predictive Check
 
 We employ the use a posterior predictive check in @fig-ppcheck to evaluate how well the model fits the data. By examining the figure, it appears as though the model does not accurately fit the data, and thus amendments likely should be made as a result [@citeAlexander].
 
@@ -484,7 +484,7 @@ pp_check(analysis_model) +
   theme(legend.position = "bottom")
 ```
 
-## Comparison of the posterior and prior
+## Comparison of the Posterior and Prior
 
 We compare the posterior and prior in @fig-postprior to examine how the estimates change once data is taken into account [@citeAlexander].
 
