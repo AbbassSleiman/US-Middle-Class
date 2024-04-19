@@ -3,7 +3,7 @@ title: "Behind Bars and Beyond: Investigating Socioeconomic Drivers of Incarcera
 subtitle: "A comparative analysis of global trends and America's mass incarceration crisis."
 author: 
   - Abbass Sleiman
-thanks: "Code and data are available at: [https://github.com/AbbassSleiman/US-Middle-Class](https://github.com/AbbassSleiman/US-Middle-Class). Shiny webapp can be accessed at []()"
+thanks: "Code and data are available at: [https://github.com/AbbassSleiman/US_Incarceration](https://github.com/AbbassSleiman/US_Incarceration). Shiny webapp can be accessed at [https://wklzec-abbass-sleiman.shinyapps.io/incarceration_rate/](https://wklzec-abbass-sleiman.shinyapps.io/incarceration_rate/)"
 date: today
 date-format: long
 format: 
