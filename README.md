@@ -9,7 +9,7 @@ This repo contains the data, `R` scripts, and final `PDF` report used in the ana
 
 The repo is structured as follows:
 
--   `data` contains the data sources used in analysis including the raw and cleaned data. @sec-raw explains how one could gain access to the raw datasets.
+-   `data` contains the data sources used in analysis including the raw and cleaned data. The section `Raw Data` below explains how one could gain access to the raw datasets.
 -   `other` contains relevant literature, details about LLM chat interactions, and sketches.
 -   `models` contains fitted models. 
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
