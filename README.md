@@ -9,13 +9,13 @@ This repo contains the data, `R` scripts, and final `PDF` report used in the ana
 
 The repo is structured as follows:
 
--   `data` contains the data sources used in analysis including the raw and cleaned data. @sec-raw explains how one could gain access to the raw datasets.
+-   `data` contains the data sources used in analysis including the raw and cleaned data. The section `Raw Data` below explains how one could gain access to the raw datasets.
 -   `other` contains relevant literature, details about LLM chat interactions, and sketches.
 -   `models` contains fitted models. 
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
 -   `scripts` contains the R scripts used to simulate, clean, and test the data. It also contains the script used to generate the model used in the paper.
 
-## Raw Data {#sec-raw}
+## Raw Data
 
 There were 5 raw datasets in total that were used in this paper, all of which can be publically accessed and downloaded from the following links:
 - `incarceration-rates-by-country-2024.csv` can be downloaded at https://worldpopulationreview.com/country-rankings/incarceration-rates-by-country.
