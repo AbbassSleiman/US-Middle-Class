@@ -2,39 +2,34 @@
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
+This repo contains the data, `R` scripts, and final `PDF` report used in the analysis of the United States' issue of mass incarceration through a comparative analysis of global trends in education, unemployment, crime, and poverty rates, and their respective impacts on incarceration. Employing a Bayesian multiple linear regression model, we find evidence to suggest that poverty and unemployment negatively correlate with incarceration rates, whereas violent crime rates positively correlate. We also identify nuances in the relationship between educational attainment and incarceration rates. These insights may offer valuable considerations for policy-making aimed at addressing mass incarceration in the United States.
 
 
 ## File Structure
 
-The repo is structured as:
+The repo is structured as follows:
 
--   `data/raw_data` contains the raw data as obtained from X.
--   `data/analysis_data` contains the cleaned dataset that was constructed.
--   `model` contains fitted models. 
+-   `data` contains the data sources used in analysis including the raw and cleaned data. @sec-raw explains how one could gain access to the raw datasets.
 -   `other` contains relevant literature, details about LLM chat interactions, and sketches.
+-   `models` contains fitted models. 
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
--   `scripts` contains the R scripts used to simulate, download and clean data.
+-   `scripts` contains the R scripts used to simulate, clean, and test the data. It also contains the script used to generate the model used in the paper.
+
+## Raw Data {#sec-raw}
+
+There were 5 raw datasets in total that were used in this paper, all of which can be publically accessed and downloaded from the following links:
+- `incarceration-rates-by-country-2024.csv` can be downloaded at https://worldpopulationreview.com/country-rankings/incarceration-rates-by-country.
+- `poverty-rate-by-country-2024.csv` can be downloaded at https://worldpopulationreview.com/country-rankings/poverty-rate-by-country.
+- `violent-crime-rates-by-country-2024.csv` can be downloaded at https://worldpopulationreview.com/country-rankings/violent-crime-rates-by-country.
+- `unemployment-by-country-2024.csv` can be downloaded at https://worldpopulationreview.com/country-rankings/violent-crime-rates-by-country.
+- `education-rankings-by-country-2024.csv` can be downloaded at https://worldpopulationreview.com/country-rankings/education-rankings-by-country.
+
+Note that the data could not be automatically downloaded using a script as accessing the data requires the user to input their email when attempting to download. The raw data will be immediately emailed to the user as a result for use.
 
 ## Parquet Usage
 
 I acknowledge that the usage of a parquet would have been ideal as opposed to saving the analysis data as a csv. Unfortunately, due to a recent update, an error with writing files as a parquet prevented me from being able to save the data as a parquet in a timely manner.
 
-## Raw Data
-
-The raw data can be publically accessed and downloaded from the following links:
-- `...` can be downloaded at ...
-
-Note that the data could not be automatically downloaded using a script as accessing the data requires the user to input their email when attempting to download. The raw data will be immediately emailed to the user as a result for use.
-
 ## Statement on LLM usage
 
-Aspects of the code were written with the help of the auto-complete tool, Codriver. The abstract and introduction were written with the help of ChatHorse and the entire chat history is available in inputs/llms/usage.txt.
-
-## Some checks
-
-- [ ] Change the rproj file name so that it's not starter_folder.Rproj
-- [ ] Change the README title so that it's not Starter folder
-- [ ] Remove files that you're not using
-- [ ] Update comments in R scripts
-- [ ] Remove this checklist
+No auto-complete tools such as co-pilot were used in the course of this project. However, CHATGPT-3.5 was used to aid in the writing of this paper. The entire chat history can be found in `other/llm/usage.txt`
